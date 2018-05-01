@@ -1,0 +1,14 @@
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\bin\Debug\netAvida.exe.config
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\bin\Debug\netAvida.exe
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\bin\Debug\netAvida.pdb
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida.csprojResolveAssemblyReference.cache
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\MainWindow.g.cs
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\App.g.cs
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida_MarkupCompile.cache
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida_MarkupCompile.lref
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\MainWindow.baml
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida.g.resources
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida.Properties.Resources.resources
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida.csproj.GenerateResource.Cache
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida.exe
+F:\Java\repositorios\jAvida_github\netAvida\netAvida\obj\Debug\netAvida.pdb

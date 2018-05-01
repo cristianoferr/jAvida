@@ -1,0 +1,12 @@
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\netAvida.Tests.dll
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\netAvida.Tests.pdb
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\obj\Debug\netAvida.Tests.csprojResolveAssemblyReference.cache
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\obj\Debug\netAvida.Tests.dll
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.Tests\obj\Debug\netAvida.Tests.pdb

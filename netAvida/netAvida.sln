@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netAvida", "netAvida\netAvida.csproj", "{FA0F2F1D-14FD-4FC9-B5B2-7D0F2659DDF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netAvida.Tests", "netAvida.Tests\netAvida.Tests.csproj", "{6CC20FFD-1B03-4CCE-A60C-DFB9CDB3950A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netAvida.Backend", "netAvida.Backend\netAvida.Backend.csproj", "{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA0F2F1D-14FD-4FC9-B5B2-7D0F2659DDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0F2F1D-14FD-4FC9-B5B2-7D0F2659DDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0F2F1D-14FD-4FC9-B5B2-7D0F2659DDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0F2F1D-14FD-4FC9-B5B2-7D0F2659DDF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC20FFD-1B03-4CCE-A60C-DFB9CDB3950A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC20FFD-1B03-4CCE-A60C-DFB9CDB3950A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC20FFD-1B03-4CCE-A60C-DFB9CDB3950A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC20FFD-1B03-4CCE-A60C-DFB9CDB3950A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
