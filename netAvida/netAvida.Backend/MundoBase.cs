@@ -2,10 +2,11 @@
 using netAvida.Backend.interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace netAvida.backend
 {
-    public class MundoBase : IWorld
+    public abstract class MundoBase : IWorld
     {
         private IList<IOrganismo> organismos = new List<IOrganismo>();
         private Dictionary<int, IOrganismo> organismosMap = new Dictionary<int, IOrganismo>();
@@ -13,11 +14,12 @@ namespace netAvida.backend
         private IOrganismo ancestor;
         protected int lastSize = 0;
         protected long tick = 0;
-        protected WorldSettings settings = null;
+        protected WorldSettings _settings = null;
 
         protected int killCount;
 
-        private Dictionary<int, Instruction> instructions = new Dictionary<int, Instruction>();
+        private Dictionary<int, Instruction> _instructions = new Dictionary<int, Instruction>();
+        public Dictionary<int, Instruction> instructions { get { return _instructions; } }
         private Dictionary<string, Instruction> instructionsNames = new Dictionary<string, Instruction>();
         IManageInstructions instructionManager = null;
 
@@ -30,22 +32,21 @@ namespace netAvida.backend
         public MundoBase()
         {
             initSettings();
-            taskControl = new TaskControl(this);
             mutation = new MutationControl(this);
             instructionManager = initInstructions();
-            Log.info("Instructions: " + instructions.size());
-            settings.getInstructionCount = instructions.size();
+            Log.info("Instructions: " + instructions.Count);
+            settings.getInstructionCount = instructions.Count;
 
         }
 
         public IOrganismo getFromRecycle(int memSize, int sp)
         {
             IOrganismo o = null;
-            if (recycleBin.size() > 0)
+            if (recycleBin.Count > 0)
             {
-                o = recycleBin.get(0);
+                o = recycleBin[0];
                 // Log.debug("Got from recycle:" + o.oid());
-                recycleBin.remove(o);
+                recycleBin.Remove(o);
                 /*
                  * if (contains(o)) {
                  * Log.error("Recycled Item already present: "+o.oid()); return
@@ -60,38 +61,38 @@ namespace netAvida.backend
 
         public void addInstruction(int id, string name, Instruction inst)
         {
-            instructions.put(id, inst);
-            instructionsNames.put(name, inst);
+            instructions.Add(id, inst);
+            instructionsNames.Add(name, inst);
         }
 
-        @Override
-    public void setViewer(IViewLife avidaViewer)
+
+        public void setViewer(IViewLife avidaViewer)
         {
             this.viewer = avidaViewer;
         }
 
-        @Override
-    public List<IOrganismo> getOrganismos()
+
+        public IList<IOrganismo> getOrganismos()
         {
             return organismos;
         }
 
         protected abstract IManageInstructions initInstructions();
 
-        @Override
-    public Map<int, Instruction> getInstructions()
+
+        public Dictionary<int, Instruction> getInstructions()
         {
             return instructions;
         }
 
-        @Override
-    public IOrganismo getAncestor()
+
+        public IOrganismo getAncestor()
         {
             return ancestor;
         }
 
-        @Override
-    public IOrganismo criaOrganismo(int memSize)
+
+        public IOrganismo criaOrganismo(int memSize)
         {
             int sp = getValidStartingPoint(memSize, null);
             if (sp >= 0)
@@ -103,8 +104,8 @@ namespace netAvida.backend
             return null;
         }
 
-        @Override
-    public IOrganismo criaOrganismo(string fileName)
+
+        public IOrganismo criaOrganismo(string fileName)
         {
             IOrganismo o = null;
             try
@@ -113,9 +114,10 @@ namespace netAvida.backend
                 o.setStarted();
                 start(o);
             }
-            catch (IOException e)
+            catch (Exception e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
+                Log.fatal(e.Message);
             }
             ancestor = o;
             return o;
@@ -129,27 +131,27 @@ namespace netAvida.backend
 
         public void addOrganismo(IOrganismo o)
         {
-            if (!organismos.contains(o))
+            if (!organismos.Contains(o))
             {
                 // Log.debug("Adding program:" + o.oid());
-                organismos.add(o);
-                organismosMap.put(o.id(), o);
-                if (recycleBin.contains(o))
+                organismos.Add(o);
+                organismosMap.Add(o.id, o);
+                if (recycleBin.Contains(o))
                 {
-                    Log.error("Program is present on the recycle bin: " + o.oid());
+                    Log.error("Program is present on the recycle bin: " + o.oid);
                     dealloc(o);
                 }
             }
             else
             {
-                Log.error("Program already present:" + o.oid());
+                Log.error("Program already present:" + o.oid);
                 dealloc(o);
             }
         }
 
         public IOrganismo getOrganismo(int id)
         {
-            return organismosMap.get(id);
+            return organismosMap[id];
         }
 
         protected IOrganismo instantiateOrganismo(int memSize, int sp)
@@ -158,20 +160,20 @@ namespace netAvida.backend
             return null;
         }
 
-        @Override
-    public MutationControl getMutation()
+
+        public MutationControl getMutation()
         {
             return mutation;
         }
 
-        @Override
-    public boolean start(IOrganismo o)
+
+        public bool start(IOrganismo o)
         {
             if (!o.validate())
             {
-                if (o.parent() != null)
+                if (o.parent != null)
                 {
-                    o.parent().criticalError();
+                    o.parent.criticalError();
                 }
                 dealloc(o);
                 return false;
@@ -180,15 +182,15 @@ namespace netAvida.backend
             return true;
         }
 
-        @Override
-    public void dealloc(IOrganismo o)
+
+        public void dealloc(IOrganismo o)
         {
             if (o == null)
             {
                 return;
             }
-            organismos.remove(o);
-            organismosMap.remove(o.id());
+            organismos.Remove(o);
+            organismosMap.Remove(o.id);
             if (!o.isAlive())
             {
                 return;
@@ -196,21 +198,19 @@ namespace netAvida.backend
             o.clearChild();
             killCount++;
             o.kill();
-            if (!recycleBin.contains(o))
+            if (!recycleBin.Contains(o))
             {
-                // Log.debug("Add to recycle:" +
-                // o.oid()+"  "+CRJavaUtils.getMethodDescriptionAt(3)+"  "+CRJavaUtils.getMethodDescriptionAt(4));
-                recycleBin.add(o);
+                recycleBin.Add(o);
             }
             else
             {
                 Log.error("Program is already present on the recycle bin: "
-                        + o.oid());
+                        + o.oid);
             }
 
         }
 
-        private float runOrganismo(float error, boolean checkTick, IOrganismo o)
+        private float runOrganismo(float error, bool checkTick, IOrganismo o)
         {
             if (isRunnable(o))
             {
@@ -236,48 +236,19 @@ namespace netAvida.backend
             return error;
         }
 
-        protected boolean isRunnable(IOrganismo o)
+        protected bool isRunnable(IOrganismo o)
         {
-            return o != null && o.hasStarted();
+            return o != null && o.hasStarted;
         }
 
-        @Override
-    public void run()
+
+        public void run()
         {
             tick++;
-            lastSize = size();
+
             totalMemory = 0;
             maxMemory = 0;
             minMemory = 0;
-            float error = 0;
-            boolean checkTick = (tick % 500 == 0);
-
-            for (int i = lastSize - 1; i >= 0; i--)
-            {
-                try
-                {
-                    if (i < organismos.size())
-                    {
-                        IOrganismo o = organismos.get(i);
-                        error = runOrganismo(error, checkTick, o);
-                    }
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-
-            while (getMemoryUsePerc() > settings.memoryUseLimitPerc)
-            {
-                killWorst(true);
-                // lastSize = size();
-            }
-
-            if (checkTick)
-            {
-                checkTick(error, totalMemory, maxMemory, minMemory);
-            }
 
             if (viewer != null)
             {
@@ -297,11 +268,11 @@ namespace netAvida.backend
             }*/
         }
 
-        public IOrganismo killWorst(boolean killPositive)
+        public IOrganismo killWorst(bool killPositive)
         {
             float maxError = 0;
             IOrganismo choosen = null;
-            for (IOrganismo o : organismos)
+            foreach (IOrganismo o in organismos)
             {
                 float error = o.getError();
                 if (error > maxError || maxError == 0)
@@ -313,7 +284,6 @@ namespace netAvida.backend
             if ((killPositive && maxError >= 0) || (maxError < 0))
             {
                 dealloc(choosen);
-
                 return choosen;
             }
             return null;
@@ -332,9 +302,9 @@ namespace netAvida.backend
         public void save()
         {
             Log.info("Saving...");
-            for (IOrganismo org : organismos)
+            foreach (IOrganismo org in organismos)
             {
-                if (org.childCount() > 10)
+                if (org.childCount > 10)
                 {
                     org.save();
                 }
@@ -342,54 +312,56 @@ namespace netAvida.backend
 
         }
 
-        @Override
-    public IOrganismo alloc(int memSize, IOrganismo o)
+
+        public IOrganismo alloc(int memSize, IOrganismo o)
         {
             Log.fatal("alloc is undefined");
             return null;
         }
 
-        @Override
-    public WorldSettings settings()
+
+        public WorldSettings settings
         {
-            return settings;
+            get
+            {
+                return _settings;
+            }
         }
 
-        @Override
-    public Instruction getInstruction(string id)
+        public Instruction getInstruction(string id)
         {
-            return instructionsNames.get(id);
+            return instructionsNames[id];
         }
 
-        @Override
-    public Instruction getInstruction(int id)
+
+        public Instruction getInstruction(int id)
         {
-            return instructions.get(id);
+            return instructions[id];
         }
 
-        @Override
-    public int getMemory(int ip)
+
+        public int getMemory(int ip)
         {
             Log.fatal("getMemory is undefined");
             return 0;
         }
 
-        @Override
-    public ICPU cpu()
+
+        public ICPU cpu()
         {
             Log.fatal("No CPU defined");
             return null;
         }
 
-        public boolean isValidInstruction(int inst)
+        public bool isValidInstruction(int inst)
         {
-            return instructions.containsKey(inst);
+            return instructions.ContainsKey(inst);
         }
 
-        @Override
-    public boolean contains(IOrganismo org)
+
+        public bool contains(IOrganismo org)
         {
-            return organismos.contains(org);
+            return organismos.Contains(org);
         }
 
         public IViewLife getViewer()
@@ -397,49 +369,11 @@ namespace netAvida.backend
             return viewer;
         }
 
-        @Override
-    public TaskControl io()
-        {
-            return taskControl;
-        }
-
-        @Override
-    public void markProgram(IOrganismo o, Color red)
+        public void markProgram(IOrganismo o, Color red)
         {
 
         }
 
-        @Override
-    public IOrganismo getOrganismoAt(int x, int y)
-        {
-            Log.fatal("getNeighbourAt not implemented");
-            return null;
-        }
-
-        @Override
-    public void drawLink(IOrganismo o, IOrganismo child)
-        {
-            Log.fatal("drawLink not implemented");
-
-        }
-
-        @Override
-    public void drawUnLink(IOrganismo o, IOrganismo child)
-        {
-            Log.fatal("drawUnLink not implemented");
-
-        }
-
-        public void removeOrganismoAt(int x, int y)
-        {
-
-        }
-
-        @Override
-    public void transferOrganismo(IOrganismo org, int x, int y)
-        {
-            Log.fatal("transferOrganismo not implemented");
-        }
 
     }
 

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Text;
+using System.Linq;
 
 namespace netAvida.backend
 {
@@ -101,16 +104,7 @@ namespace netAvida.backend
                 return false;
             }
         }
-
-        public static ConstsComuns.Operador ConverteOperador(string oper)
-        {
-            if (oper == "=") return ConstsComuns.Operador.EQUAL;
-            if (oper == ">") return ConstsComuns.Operador.GREATER;
-            if (oper == "<") return ConstsComuns.Operador.LOWER;
-            if (oper == ">=") return ConstsComuns.Operador.GREATER_EQ;
-            if (oper == "<=") return ConstsComuns.Operador.LOWER_EQ;
-            return ConstsComuns.Operador.DIFFERENT;
-        }
+        
 
         public static void println(string p)
         {

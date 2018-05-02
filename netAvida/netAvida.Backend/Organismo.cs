@@ -443,7 +443,7 @@ namespace netAvida.backend
 
         protected void criticalError(int mult)
         {
-            _error += (mundo.settings().errorCritical * mult);
+            _error += (mundo.settings.errorCritical * mult);
         }
 
 
@@ -453,7 +453,7 @@ namespace netAvida.backend
             {
                 return;
             }
-            _error += mundo.settings().errorCritical;
+            _error += mundo.settings.errorCritical;
             if (_parent != null)
             {
                 _parent.error();
@@ -464,14 +464,14 @@ namespace netAvida.backend
 
         public void error()
         {
-            _error += mundo.settings().errorNormal;
+            _error += mundo.settings.errorNormal;
 
         }
 
 
         public void addFitness(float f)
         {
-            _error -= mundo.settings().fitnessNormal * f;
+            _error -= mundo.settings.fitnessNormal * f;
 
         }
 
@@ -572,18 +572,12 @@ namespace netAvida.backend
             }
 
             float childReward = (childCount - lastChildCount)
-                    * mundo.settings().childReward;
+                    * mundo.settings.childReward;
             if (childReward > 0)
             {
                 addFitness(childReward);
             }
-
-            // addFitness(getMemorySize() * mundo.settings().getSizeReward);
             lastChildCount = childCount;
-            // if (getError()>AvidaConsts.ERROR_LIMIT){
-            // addErrorCritical();
-
-            // }
 
         }
 
@@ -725,6 +719,10 @@ namespace netAvida.backend
         }
 
         public bool hasStarted { get; set; }
+        public void setStarted()
+        {
+            hasStarted = true;
+        }
 
 
         public IOrganismo getNeighbourAt(int index)

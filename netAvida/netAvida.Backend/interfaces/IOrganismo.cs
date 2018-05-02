@@ -111,8 +111,7 @@ namespace netAvida.backend.interfaces
         int oid { get; }
 
         String getCode();
-
-
+        void setStarted();
     }
 
 }

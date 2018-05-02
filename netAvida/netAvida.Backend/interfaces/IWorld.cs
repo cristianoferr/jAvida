@@ -11,7 +11,7 @@ namespace netAvida.backend.interfaces
         IOrganismo criaOrganismo(int memSize);
 
         MutationControl getMutation();
-        List<IOrganismo> getOrganismos();
+        IList<IOrganismo> getOrganismos();
 
         bool start(IOrganismo child);
 
@@ -19,9 +19,9 @@ namespace netAvida.backend.interfaces
 
         IOrganismo alloc(int memSize, IOrganismo o);
 
-        WorldSettings settings();
+        WorldSettings settings { get; }
 
-        ICPU cpu { get; set; }
+        ICPU cpu();
 
         Instruction getInstruction(String line);
 
@@ -33,11 +33,12 @@ namespace netAvida.backend.interfaces
         IOrganismo getAncestor();
 
         void addInstruction(int id, String name, Instruction inst);
-        Dictionary<int, Instruction> getInstructions();
+
+        Dictionary<int, Instruction> instructions { get; }
+
         IOrganismo killWorst(bool flagIncludePositive);
         bool isValidInstruction(int inst);
 
-        float getMemoryUsePerc();
         void save();
         bool contains(IOrganismo org);
 

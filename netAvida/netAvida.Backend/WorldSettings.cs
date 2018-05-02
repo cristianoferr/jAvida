@@ -1,4 +1,5 @@
-﻿using System;
+﻿using netAvida.Backend.utils;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,12 +13,13 @@ namespace netAvida.backend
         public const string ERROR_KILL_CHANCE = "errorKillChance";
         public const string WRITE_MUTATION_CHANCE = "writeInstructionMutationChance";
         public const string OCUPPATION_RATIO = "occupationRatio";
-        private string iniFile;
+        private string _iniFile;
+        private IniFile ini;
         List<string> configs = new List<string>();
 
         public WorldSettings(string file, int maxOrgs)
         {
-            this.iniFile = file;
+            this._iniFile = file;
             this.maxOrganismos = maxOrgs;
 
             configs.Add(DIV_MUT_CHANCE);
@@ -30,46 +32,26 @@ namespace netAvida.backend
 
         private void loadIni()
         {
-            File file = new File(iniFile);
-
-            ini = new BasicIniFile();
-
-            IniFileReader reader = new IniFileReader(ini, file);
-            try
-            {
-                reader.read();
-            }
-            catch (FormatException e)
-            {
-                // e.printStackTrace();
-            }
-            catch (IOException e)
-            {
-                // e.printStackTrace();
-            }
+            ini= new IniFile(_iniFile);
+            
             initSettingsSection();
 
         }
 
         private void initSettingsSection()
         {
-            settings = ini.getSection("SETTINGS");
-            if (settings == null)
-            {
-                settings = ini.addSection("SETTINGS");
-            }
 
             autoSave = false;
             foreach (string prop in configs)
             {
-                IniItem item = settings.getItem(prop);
-                if (item != null)
+                
+                if (ini.KeyExists(prop,"SETTINGS"))
                 {
-                    changeProperty(prop, Float.parseFloat(item.getValue()));
+                    changeProperty(prop, float.Parse(ini.Read(prop,"SETTINGS")));
                 }
                 else
                 {
-                    settings.addItem(prop).setValue(getProperty(prop));
+                    ini.Write(prop, getProperty(prop).ToString(), "SETTINGS");
                 }
             }
             autoSave = true;
@@ -78,10 +60,9 @@ namespace netAvida.backend
         private void updateSettingsSection()
         {
 
-            for (string prop : configs)
+            foreach (string prop in configs)
             {
-                IniItem item = settings.getItem(prop);
-                item.setValue(getProperty(prop));
+                ini.Write(prop, getProperty(prop).ToString(), "SETTINGS");
             }
         }
 
@@ -162,19 +143,7 @@ namespace netAvida.backend
 
         private void saveIni()
         {
-            updateSettingsSection();
-            File file = new File(iniFile);
-            //file.delete();
-            IniFileWriter writer = new IniFileWriter(ini, file);
-            Log.info("Saving settings: " + iniFile);
-            try
-            {
-                writer.write();
-            }
-            catch (Exception e)
-            {
-                //e.printStackTrace();
-            }
+         
 
         }
 
