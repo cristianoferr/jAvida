@@ -44,8 +44,20 @@ namespace netAvida.Tierra
             return o;
         }
 
-        
-    protected override int getValidStartingPoint(int memSize, IOrganismo parent)
+        public bool isRunning = true;
+        /**
+         *Chamado via thread
+         **/
+        public void runLoop()
+        {
+            isRunning = true;
+            while (isRunning)
+            {
+                run();
+            }
+        }
+
+        protected override int getValidStartingPoint(int memSize, IOrganismo parent)
         {
             return _cpu.getValidMemory(memSize);
         }
@@ -56,8 +68,6 @@ namespace netAvida.Tierra
             base.addOrganismo(o);
             _cpu.allocate(sp, memSize, o);
         }
-
-
 
         
     public override IOrganismo alloc(int memSize, IOrganismo parent)
@@ -125,6 +135,12 @@ namespace netAvida.Tierra
             {
                 criaOrganismo(TierraConsts.DEFAULT_ANCESTOR);
             }
+
+            while (getMemoryUsePerc() > settings.memoryUseLimitPerc)
+            {
+                killWorst(true);
+                // lastSize = size();
+            }
         }
 
         public float getMemoryUsePerc()
@@ -133,9 +149,35 @@ namespace netAvida.Tierra
         }
 
         
-    public void run()
+    public override void run()
         {
+            lastSize = organismos.Count;
             base.run();
+
+            float error = 0;
+            bool _checkTick = (tick % 500 == 0);
+
+            for (int i = lastSize - 1; i >= 0; i--)
+            {
+                if (i < organismos.Count)
+                {
+                    try
+                    {
+                        IOrganismo o = organismos[i];
+                        error = runOrganismo(error, _checkTick, o);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.fatal(e.Message);
+                    }
+                }
+            }
+            if (_checkTick)
+            {
+                checkTick(error, totalMemory, maxMemory, minMemory);
+            }
+
+            
         }
 
         private void killAllocatedOrphans()
