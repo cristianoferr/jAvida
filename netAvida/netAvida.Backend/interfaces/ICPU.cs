@@ -8,5 +8,6 @@ namespace netAvida.backend.interfaces
     {
         void setMemory(int memoryPos, int rnd);
         int getMemory(int i);
+        void deallocate(IOrganismo o);
     }
 }

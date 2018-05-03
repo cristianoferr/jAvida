@@ -45,11 +45,51 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ALifeIO.cs" />
-    <Compile Include="CONSTS.cs" />
+    <Compile Include="ALifeConsts.cs" />
     <Compile Include="instructions\BaseInstruction.cs" />
     <Compile Include="instructions\IInstruction.cs" />
+    <Compile Include="instructions\impl\branch\RetInstruction.cs" />
+    <Compile Include="instructions\impl\branch\JumpRegInstruction.cs" />
+    <Compile Include="instructions\impl\branch\JumpInstruction.cs" />
+    <Compile Include="instructions\impl\branch\JumpByteInstruction.cs" />
+    <Compile Include="instructions\impl\branch\CallRegInstruction.cs" />
+    <Compile Include="instructions\impl\branch\AdrInstruction.cs" />
+    <Compile Include="instructions\impl\branch\CallInstruction.cs" />
+    <Compile Include="instructions\impl\branch\CallByteInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\ZeroInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\SubInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\ShiftRightInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\ShiftLeftInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\SetBitInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\IncInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\DecInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\BitInstruction.cs" />
+    <Compile Include="instructions\impl\arithmetic\AddInstruction.cs" />
+    <Compile Include="instructions\impl\BaseInstruction.cs" />
+    <Compile Include="instructions\impl\io\MalInstruction.cs" />
+    <Compile Include="instructions\impl\io\DivideInstruction.cs" />
+    <Compile Include="instructions\impl\logic\XorInstruction.cs" />
+    <Compile Include="instructions\impl\logic\OrInstruction.cs" />
+    <Compile Include="instructions\impl\logic\NorInstruction.cs" />
+    <Compile Include="instructions\impl\logic\NandInstruction.cs" />
+    <Compile Include="instructions\impl\logic\IFZeroInstruction.cs" />
+    <Compile Include="instructions\impl\logic\IFLessInstruction.cs" />
+    <Compile Include="instructions\impl\logic\IFDifInstruction.cs" />
+    <Compile Include="instructions\impl\logic\AndInstruction.cs" />
+    <Compile Include="instructions\impl\misc\NopInstruction.cs" />
+    <Compile Include="instructions\impl\stack\PushInstruction.cs" />
+    <Compile Include="instructions\impl\stack\PopInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\SwapInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\SaveToRegisterPositionInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\SaveToBytePositionInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\MovToRegisterInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\MovToBytePositionInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\MovInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\MovByteInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\LoadFromRegisterInstruction.cs" />
+    <Compile Include="instructions\impl\transfers\LoadFromMemoryInstruction.cs" />
+    <Compile Include="instructions\InstructionBuilderBase.cs" />
     <Compile Include="interfaces\IInstruction.cs" />
-    <Compile Include="instructions\NopInstruction.cs" />
     <Compile Include="interfaces\ICPU.cs" />
     <Compile Include="interfaces\IManageInstructions.cs" />
     <Compile Include="interfaces\IOrganismo.cs" />
@@ -65,5 +105,6 @@
     <Compile Include="utils\Utils.cs" />
     <Compile Include="WorldSettings.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,14 +12,14 @@ namespace netAvida.backend
         private IOrganismo organismo;
         public Pilha(IOrganismo o)
         {
-            stack = new int[CONSTS.MAX_STACK];
+            stack = new int[ALifeConsts.MAX_STACK];
             this.organismo = o;
         }
         public void push(int i)
         {
-            if (pos >= CONSTS.MAX_STACK)
+            if (pos >= ALifeConsts.MAX_STACK)
             {
-                pos = CONSTS.MAX_STACK - 1;
+                pos = ALifeConsts.MAX_STACK - 1;
             }
             stack[pos] = i;
             pos++;
@@ -39,7 +39,7 @@ namespace netAvida.backend
             String s = "Stack: ";
             for (int i = 0; i < pos; i++)
             {
-                s += CONSTS.numberFormat(stack[i]) + " | ";
+                s += ALifeConsts.numberFormat(stack[i]) + " | ";
             }
             return s;
         }

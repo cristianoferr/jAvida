@@ -1,5 +1,5 @@
-﻿using netAvida.backend.instructions;
-using netAvida.backend.interfaces;
+﻿using netAvida.backend.interfaces;
+using netAvida.Backend.instructions.impl;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,7 +24,7 @@ namespace netAvida.backend
         int _age;
         public int age { get { return age; } }
 
-        protected int[] buffer = new int[CONSTS.MAX_BUFFER];
+        protected int[] buffer = new int[ALifeConsts.MAX_BUFFER];
         private float _error;
 
         private IOrganismo _parent;
@@ -45,14 +45,21 @@ namespace netAvida.backend
         int somaInsts = 0;
         protected MutationControl mutation;
         protected int childId;
-        bool _wroteFlag = false;
 
-
-        protected void initMemory()
+        public Organismo(IWorld mundo, int memSize, int sp)
         {
+            _oid = ++objCount;
+            this.mundo = mundo;
+            initMemory();
+
+            mutation = mundo.getMutation();
+            initRegs();
+            reset(memSize, sp);
         }
 
-        
+        protected virtual void initMemory()
+        {
+        }
 
 
         public void reset(int memSize, int sp)
@@ -71,7 +78,6 @@ namespace netAvida.backend
             _error = 0;
             _age = 0;
             alive = true;
-            _wroteFlag = true;
             lastChildCount = 0;
             childlessCounter = 0;
             _childCount = 0;
@@ -80,7 +86,7 @@ namespace netAvida.backend
 
         }
 
-        protected void setMemorySize(int memSize)
+        protected virtual void setMemorySize(int memSize)
         {
             Log.fatal("Undefined setMemorySize");
         }
@@ -100,16 +106,16 @@ namespace netAvida.backend
 
             int code = somaInstructions() / memorySize;
             int parentSize = _parent.getMemorySize();
-            if (parentSize < CONSTS.MIN_MEMORY_CHILD * memorySize)
+            if (parentSize < ALifeConsts.MIN_MEMORY_CHILD * memorySize)
             {
-                parentSize = (int)(CONSTS.MIN_MEMORY_CHILD * memorySize);
+                parentSize = (int)(ALifeConsts.MIN_MEMORY_CHILD * memorySize);
             }
             int parentCode = _parent.somaInstructions() / parentSize;
             int dif = code - parentCode;
             return dif;
         }
 
-        public void setStartPoint(int i)
+        public virtual void setStartPoint(int i)
         {
             Log.fatal("Undefined setMemorySize");
         }
@@ -120,14 +126,14 @@ namespace netAvida.backend
             stacks = new Pilha(this);
         }
 
-        protected void initRegs()
+        protected virtual void initRegs()
         {
             Log.fatal("Undefined initRegs");
         }
 
         private void initBuffer()
         {
-            for (int i = 0; i < CONSTS.MAX_BUFFER; i++)
+            for (int i = 0; i < ALifeConsts.MAX_BUFFER; i++)
             {
                 buffer[i] = 0;
             }
@@ -146,28 +152,28 @@ namespace netAvida.backend
         {
             get
             {
-                return getReg(CONSTS.IP_REG);
+                return getReg(ALifeConsts.IP_REG);
             }
             set
             {
-                setReg(CONSTS.IP_REG, value);
+                setReg(ALifeConsts.IP_REG, value);
             }
         }
 
 
-        public bool setMemory(int index, int v)
+        public virtual bool setMemory(int index, int v)
         {
             return setMemory(index, v, true);
         }
 
 
-        public void setReg(int i, int v)
+        public virtual void setReg(int i, int v)
         {
             Log.fatal("Undefined setReg");
         }
 
 
-        public int getReg(int i)
+        public virtual int getReg(int i)
         {
             Log.fatal("Undefined getReg");
             return 0;
@@ -205,7 +211,7 @@ namespace netAvida.backend
         }
 
 
-        public bool setMemory(int index, int v, bool punish)
+        public virtual bool setMemory(int index, int v, bool punish)
         {
             return false;
         }
@@ -238,15 +244,15 @@ namespace netAvida.backend
             do
             {
                 mem = getMemory(pos);
-                if (mem == CONSTS.NOP0 || mem == CONSTS.NOP1)
+                if (mem == ALifeConsts.NOP0 || mem == ALifeConsts.NOP1)
                 {
-                    buffer[sizeBuffer] = (mem == CONSTS.NOP0 ? CONSTS.NOP1
-                            : CONSTS.NOP0);
+                    buffer[sizeBuffer] = (mem == ALifeConsts.NOP0 ? ALifeConsts.NOP1
+                            : ALifeConsts.NOP0);
                     sizeBuffer++;
                 }
                 pos++;
-            } while ((mem == CONSTS.NOP0 || mem == CONSTS.NOP1)
-                    && sizeBuffer < CONSTS.MAX_BUFFER);
+            } while ((mem == ALifeConsts.NOP0 || mem == ALifeConsts.NOP1)
+                    && sizeBuffer < ALifeConsts.MAX_BUFFER);
         }
 
 
@@ -257,7 +263,7 @@ namespace netAvida.backend
                 return -1;
             }
             int indexBuffer = 0;
-            for (int i = 0; i < CONSTS.TEMPLATE_LIMIT; i++)
+            for (int i = 0; i < ALifeConsts.TEMPLATE_LIMIT; i++)
             {
                 int index = ip + i;
                 int m = getMemory(index);
@@ -281,18 +287,18 @@ namespace netAvida.backend
         {
             string saida = prefix + " = ";
 
-            for (int i = 0; i < CONSTS.REGISTRADORES; i++)
+            for (int i = 0; i < ALifeConsts.REGISTRADORES; i++)
             {
-                saida += CONSTS.getLetter(i) + "X:"
-                        + CONSTS.numberFormat(getReg(i)) + " ";
+                saida += ALifeConsts.getLetter(i) + "X:"
+                        + ALifeConsts.numberFormat(getReg(i)) + " ";
             }
-            saida += "SP:" + CONSTS.numberFormat(sp()) + " IP:"
-                    + CONSTS.numberFormat(ip) + " E:" + ((int)_error)
+            saida += "SP:" + ALifeConsts.numberFormat(sp()) + " IP:"
+                    + ALifeConsts.numberFormat(ip) + " E:" + ((int)_error)
                     + " ID:" + id;
             if (_child != null)
             {
                 saida += " (Child:" + _child.id + " size:"
-                        + CONSTS.numberFormat(_child.getMemorySize()) + " )";
+                        + ALifeConsts.numberFormat(_child.getMemorySize()) + " )";
             }
 
             saida += "\n#" + stacks.debugInfo();
@@ -404,7 +410,7 @@ namespace netAvida.backend
                 return -1;
             }
             int indexBuffer = sizeBuffer;
-            for (int i = 0; i < CONSTS.TEMPLATE_LIMIT; i++)
+            for (int i = 0; i < ALifeConsts.TEMPLATE_LIMIT; i++)
             {
                 int index = ip - i;
                 int m = getMemory(index);
@@ -493,7 +499,7 @@ namespace netAvida.backend
         public void addChild()
         {
             _childCount++;
-            if (childCount == CONSTS.AUTO_SAVE_PROGRAM_WITH_CHILD_COUNT)
+            if (childCount == ALifeConsts.AUTO_SAVE_PROGRAM_WITH_CHILD_COUNT)
             {
                 if (_child != null)
                 {
@@ -562,13 +568,13 @@ namespace netAvida.backend
                 childlessCounter = 0;
             }
 
-            if (_error > CONSTS.ERROR_UPPER_LIMIT)
+            if (_error > ALifeConsts.ERROR_UPPER_LIMIT)
             {
-                _error = CONSTS.ERROR_UPPER_LIMIT;
+                _error = ALifeConsts.ERROR_UPPER_LIMIT;
             }
-            if (_error < -CONSTS.ERROR_UPPER_LIMIT)
+            if (_error < -ALifeConsts.ERROR_UPPER_LIMIT)
             {
-                _error = -CONSTS.ERROR_UPPER_LIMIT;
+                _error = -ALifeConsts.ERROR_UPPER_LIMIT;
             }
 
             float childReward = (childCount - lastChildCount)
@@ -581,13 +587,8 @@ namespace netAvida.backend
 
         }
 
-        protected void punishSimilarity()
-        {
 
-        }
-
-
-        public int getMemory(int reg)
+        public virtual int getMemory(int reg)
         {
             Log.fatal("Undefined getMemory");
             return 0;
@@ -663,6 +664,12 @@ namespace netAvida.backend
                 }
                 return _parent;
             }
+            set
+            {
+                parentId = parent.id;
+                this.generation = value.getGeneration() + 1;
+                this._parent = value;
+            }
         }
 
 
@@ -679,13 +686,6 @@ namespace netAvida.backend
             return generation;
         }
 
-
-        public void setParent(IOrganismo parent)
-        {
-            parentId = parent.id;
-            this.generation = parent.getGeneration() + 1;
-            this._parent = parent;
-        }
 
 
         public void setPos(int x, int y)

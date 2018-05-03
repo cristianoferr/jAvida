@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netAvida.Tests", "netAvida.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netAvida.Backend", "netAvida.Backend\netAvida.Backend.csproj", "{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netAvida.Tierra", "netAvida.Tierra\netAvida.Tierra.csproj", "{4715FF89-3D97-4116-8721-E6FA8FCD0746}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FE4E55E-3B58-488B-ADEE-4A8A6EF17BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4715FF89-3D97-4116-8721-E6FA8FCD0746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4715FF89-3D97-4116-8721-E6FA8FCD0746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4715FF89-3D97-4116-8721-E6FA8FCD0746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4715FF89-3D97-4116-8721-E6FA8FCD0746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

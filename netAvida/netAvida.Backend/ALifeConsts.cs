@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using netAvida.backend.interfaces;
 
 namespace netAvida.backend
 {
-    public class CONSTS
+    public class ALifeConsts
     {
         public static float MAX_MEMORY_CHILD = 1.5f;
         public static float MIN_MEMORY_CHILD = 0.5f;
@@ -26,6 +27,45 @@ namespace netAvida.backend
         }
 
         public static int MAX_STACK = 32;//qtd maxima por pilha
+
+        internal static int validateMemorySize(IOrganismo pai, int memSize)
+        {
+            if (pai == null)
+            {
+                return memSize;
+            }
+            int maxMem = (int)(ALifeConsts.MAX_MEMORY_CHILD * pai.getMemorySize());
+            int minMem = (int)(ALifeConsts.MIN_MEMORY_CHILD * pai.getMemorySize());
+            if (memSize > maxMem)
+            {
+                return 0;
+            }
+            if (memSize <= minMem)
+            {
+                return 0;
+            }
+            return memSize;
+        }
+
+        public static int getBit(int num, int position)
+        {
+            return (num >> position) & 1;
+        }
+
+        internal static int setBit(int num, int pos, int bit)
+            {
+            if (bit < 0)
+            {
+                bit = 0;
+            }
+            if (bit > 1)
+            {
+                bit = 1;
+            }
+            num |= (bit << pos);
+            return num;
+        }
+
         public static int MAX_BUFFER = 16;
 
         //limite superior e inferior do erro 
@@ -53,7 +93,6 @@ namespace netAvida.backend
         }
 
         public static int MUTTYPE_OCCUPATION_RATIO = 1;
-        public static int MUTTYPE_POSITIONAL_CENTER = 2;
 
 
         public static int IMAGE_WIDTH = 1248;
@@ -66,6 +105,15 @@ namespace netAvida.backend
         internal static string getLetter(int i)
         {
             return Char.ToString((char)(65 + i % REGISTRADORES));
+        }
+
+        public static int calcIndex(int i, int max)
+        {
+            while (i < 0 && max > 0)
+            {
+                i = max + i;
+            }
+            return i % max;
         }
     }
 }

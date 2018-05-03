@@ -105,7 +105,7 @@ namespace netAvida.backend
 
         public float maxOrganismos = 0;
 
-        public int mutationType = CONSTS.MUTTYPE_OCCUPATION_RATIO;
+        public int mutationType = ALifeConsts.MUTTYPE_OCCUPATION_RATIO;
 
 
 

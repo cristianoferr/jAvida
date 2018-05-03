@@ -2,19 +2,19 @@
 
 namespace netAvida.backend
 {
-    internal class Log
+    public class Log
     {
-        internal static void info(object p)
+        public static void info(object p)
         {
             throw new NotImplementedException();
         }
 
-        internal static void fatal(string v)
+        public static void fatal(string v)
         {
             throw new NotImplementedException();
         }
 
-        internal static void error(string v)
+        public static void error(string v)
         {
             throw new NotImplementedException();
         }

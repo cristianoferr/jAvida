@@ -104,7 +104,11 @@ namespace netAvida.backend
                 return false;
             }
         }
-        
+
+        public static float Round(float perc, int casas)
+        {
+            return (float)Math.Round(perc, casas);
+        }
 
         public static void println(string p)
         {

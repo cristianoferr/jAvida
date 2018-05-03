@@ -1,6 +1,7 @@
 ﻿using netAvida.backend.interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace netAvida.backend
@@ -16,6 +17,8 @@ namespace netAvida.backend
         int getId();
 
         String getName();
+
+        Color getColor();
 
 
         int getStep();

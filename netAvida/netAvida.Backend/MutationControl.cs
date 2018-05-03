@@ -14,14 +14,14 @@ namespace netAvida.backend
         public MutationControl(IWorld mundo)
         {
             this.mundo = mundo;
-            settings = mundo.settings();
+            settings = mundo.settings;
 
         }
 
         // chamado cada vez que uma instrução é gravada em memoria
         public int mutateInstruction(int inst, IOrganismo o)
         {
-            float rnd = CRJavaUtils.random();
+            float rnd = Utils.Random(0,1);
             float mutationChance = calcMutationChance(settings.writeInstructionMutationChance, o);
             if (rnd < mutationChance)
             {
@@ -37,23 +37,10 @@ namespace netAvida.backend
             {
                 float ratio = ((float)mundo.size())
                         / (settings.occupationRatio * settings.maxOrganismos);
-                /*
-                 * if (ratio<0.01f){ ratio=0.01f; }
-                 */
-                // return mutationChance2;
                 return ratio * mutationChance;
             }
 
-            if (settings.mutationType == ALifeConsts.MUTTYPE_POSITIONAL_CENTER)
-            {
-                if (o == null)
-                {
-                    return 0;
-                }
-                float dif = Math.abs(midPt - o.getY());
-                float ratio = dif / midPt * mutationChance;
-                return ratio;
-            }
+        
             return 0;
         }
 
@@ -62,7 +49,7 @@ namespace netAvida.backend
         // chances)
         public void divisionMutation(IOrganismo o)
         {
-            float rnd = CRJavaUtils.random();
+            float rnd = Utils.Random(0,1);
             float mutationChance = calcMutationChance(settings.getDivisionMutationChance, o);
             if (rnd < mutationChance)
             {
@@ -78,7 +65,7 @@ namespace netAvida.backend
         // chamado a cada tick
         public void randomMutation(IOrganismo o)
         {
-            double random = Math.random();
+            double random = Utils.Random(0, 1);
             float mutationChance = calcMutationChance(settings.getRandomMutation, o);
             if (random < mutationChance)
             {
@@ -93,9 +80,9 @@ namespace netAvida.backend
         private void randomizeInstruction(IOrganismo o)
         {
 
-            int memPos = CRJavaUtils.randomInt(-10, 10);
+            int memPos = Utils.RandomInt(-10, 10);
 
-            int index = o.ip() + memPos;
+            int index = o.ip + memPos;
             int inst = o.getMemory(index);
             inst = changeInstruction(inst);
             o.setMemory(index, inst);
@@ -103,22 +90,22 @@ namespace netAvida.backend
 
         private int changeInstruction(int inst)
         {
-            int instChange = CRJavaUtils.randomInt(-10, 10);
+            int instChange = Utils.RandomInt(-10, 10);
             inst += instChange;
             if (inst < 0)
             {
-                inst = CRJavaUtils.randomInt(2, 10);
+                inst = Utils.RandomInt(2, 10);
             }
             if (inst >= settings.getInstructionCount)
             {
-                inst -= CRJavaUtils.randomInt(2, 10);
+                inst -= Utils.RandomInt(2, 10);
             }
             return inst;
         }
 
         public void randomPosition(int memoryPos)
         {
-            int rnd = CRJavaUtils.randomInt(0, settings.getInstructionCount);
+            int rnd = Utils.RandomInt(0, settings.getInstructionCount);
             mundo.cpu().setMemory(memoryPos, rnd);
 
         }
@@ -126,7 +113,7 @@ namespace netAvida.backend
         // chamado quando o erro do organismo excedeu o limite definido
         public void errorLimitAction(IOrganismo o)
         {
-            float rnd = CRJavaUtils.random();
+            float rnd = Utils.Random(0,1);
             float error = o.getError();
             float ratio = error / settings.getErrorLimit;
             float mutationChance = calcMutationChance(settings.errorKillChance

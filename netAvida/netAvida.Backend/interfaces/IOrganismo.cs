@@ -36,6 +36,7 @@ namespace netAvida.backend.interfaces
 
         int ip { get; set; }
 
+
         IOrganismo child { get; }
 
         void clearChild();
@@ -82,7 +83,7 @@ namespace netAvida.backend.interfaces
 
         void run();
 
-        IOrganismo parent { get; }
+        IOrganismo parent { get; set; }
 
         bool isAlive();
 
@@ -98,7 +99,6 @@ namespace netAvida.backend.interfaces
 
         int getGeneration();
 
-        void setParent(IOrganismo parent);
 
         void reset(int memSize, int sp);
 

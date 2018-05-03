@@ -8,9 +8,10 @@ namespace netAvida.backend
 {
     public abstract class MundoBase : IWorld
     {
-        private IList<IOrganismo> organismos = new List<IOrganismo>();
+        protected IList<IOrganismo> organismos = new List<IOrganismo>();
         private Dictionary<int, IOrganismo> organismosMap = new Dictionary<int, IOrganismo>();
         private IList<IOrganismo> recycleBin = new List<IOrganismo>();
+        public IList<IOrganismo> allocated = new List<IOrganismo>();
         private IOrganismo ancestor;
         protected int lastSize = 0;
         protected long tick = 0;
@@ -25,9 +26,9 @@ namespace netAvida.backend
 
         protected MutationControl mutation;
         protected IViewLife viewer;
-        private float totalMemory;
-        private int maxMemory;
-        private int minMemory;
+        protected float totalMemory;
+        protected int maxMemory;
+        protected int minMemory;
 
         public MundoBase()
         {
@@ -123,7 +124,7 @@ namespace netAvida.backend
             return o;
         }
 
-        protected int getValidStartingPoint(int memSize, IOrganismo parent)
+        protected virtual int getValidStartingPoint(int memSize, IOrganismo parent)
         {
             Log.fatal("No getValidStartingPoint defined.");
             return 0;
@@ -139,6 +140,7 @@ namespace netAvida.backend
                 if (recycleBin.Contains(o))
                 {
                     Log.error("Program is present on the recycle bin: " + o.oid);
+                    recycleBin.Remove(o);
                     dealloc(o);
                 }
             }
@@ -154,7 +156,7 @@ namespace netAvida.backend
             return organismosMap[id];
         }
 
-        protected IOrganismo instantiateOrganismo(int memSize, int sp)
+        protected virtual IOrganismo instantiateOrganismo(int memSize, int sp)
         {
             Log.fatal("No instantiateOrganismo defined.");
             return null;
@@ -167,7 +169,7 @@ namespace netAvida.backend
         }
 
 
-        public bool start(IOrganismo o)
+        public virtual bool start(IOrganismo o)
         {
             if (!o.validate())
             {
@@ -207,10 +209,12 @@ namespace netAvida.backend
                 Log.error("Program is already present on the recycle bin: "
                         + o.oid);
             }
+            cpu().deallocate(o);
+            allocated.Remove(o);
 
         }
 
-        private float runOrganismo(float error, bool checkTick, IOrganismo o)
+        protected float runOrganismo(float error, bool checkTick, IOrganismo o)
         {
             if (isRunnable(o))
             {
@@ -242,7 +246,7 @@ namespace netAvida.backend
         }
 
 
-        public void run()
+        public virtual void run()
         {
             tick++;
 
@@ -256,7 +260,7 @@ namespace netAvida.backend
             }
         }
 
-        protected void checkTick(float error, float totalMemory, int maxMemory,
+        protected virtual void checkTick(float error, float totalMemory, int maxMemory,
                 int minMemory)
         {
             if (viewer != null)
@@ -313,7 +317,7 @@ namespace netAvida.backend
         }
 
 
-        public IOrganismo alloc(int memSize, IOrganismo o)
+        public virtual IOrganismo alloc(int memSize, IOrganismo o)
         {
             Log.fatal("alloc is undefined");
             return null;
@@ -340,14 +344,14 @@ namespace netAvida.backend
         }
 
 
-        public int getMemory(int ip)
+        public virtual int getMemory(int ip)
         {
             Log.fatal("getMemory is undefined");
             return 0;
         }
 
 
-        public ICPU cpu()
+        public virtual ICPU cpu()
         {
             Log.fatal("No CPU defined");
             return null;
