@@ -20,14 +20,12 @@ namespace netAvida.Backend.interfaces
 
         void transpRect(int i, int j, int p, int p2);
 
-        void line(int xp, int yp, int i, int j);
-
         int selectedOrgId();
 
         void drawCircle(Color red, int x, int y, int i, int j);
 
         void drawLine(Color cor, int x1, int y1, int x2, int y2);
-
+        void SetMundo(IWorld world);
         void setSelected(IOrganismo o);
     }
 }

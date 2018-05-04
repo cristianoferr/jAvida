@@ -9,7 +9,7 @@ namespace netAvida.backend
     {
         public static float MAX_MEMORY_CHILD = 1.5f;
         public static float MIN_MEMORY_CHILD = 0.5f;
-        public static string GENEBANK_PATH="genebank/";
+        public static string GENEBANK_PATH="genebank\\";
 
 	    public static int IP_REG = 3;
 

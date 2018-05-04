@@ -67,7 +67,7 @@ namespace netAvida.backend
         }
 
 
-        public void setViewer(IViewLife avidaViewer)
+        public virtual void setViewer(IViewLife avidaViewer)
         {
             this.viewer = avidaViewer;
         }
@@ -130,6 +130,8 @@ namespace netAvida.backend
             return 0;
         }
 
+        public abstract float getMemoryUsePerc();
+
         public void addOrganismo(IOrganismo o)
         {
             if (!organismos.Contains(o))
@@ -185,8 +187,9 @@ namespace netAvida.backend
         }
 
 
-        public void dealloc(IOrganismo o)
+        public virtual void dealloc(IOrganismo o)
         {
+            Log.Info("Dealloc: " + o.oid);
             if (o == null)
             {
                 return;
@@ -216,6 +219,8 @@ namespace netAvida.backend
 
         protected float runOrganismo(float error, bool checkTick, IOrganismo o)
         {
+          //  if (o.id==1)
+          //      ALifeIO.saveToFile(o);
             if (isRunnable(o))
             {
                 o.run();
@@ -235,6 +240,12 @@ namespace netAvida.backend
                 if (checkTick)
                 {
                     o.checkTick();
+                }
+            } else
+            {
+                if (o.parent==null ||o.parent.isAlive()==false)
+                {
+                    dealloc(o);
                 }
             }
             return error;

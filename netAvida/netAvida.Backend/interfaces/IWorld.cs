@@ -16,6 +16,7 @@ namespace netAvida.backend.interfaces
         bool start(IOrganismo child);
 
         void dealloc(IOrganismo child);
+        float getMemoryUsePerc();
 
         IOrganismo alloc(int memSize, IOrganismo o);
 

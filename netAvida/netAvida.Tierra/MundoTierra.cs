@@ -34,6 +34,12 @@ namespace netAvida.Tierra
             return new InstructionBuilderTierra(this);
         }
 
+        public override void setViewer(IViewLife viewer)
+        {
+            base.setViewer(viewer);
+            _cpu.setViewer(viewer);
+        }
+
     protected override IOrganismo instantiateOrganismo(int memSize, int sp)
         {
             IOrganismo o = getFromRecycle(memSize, sp);
@@ -90,7 +96,7 @@ namespace netAvida.Tierra
         }
 
         
-    public void dealloc(IOrganismo o)
+    public override void dealloc(IOrganismo o)
         {
             base.dealloc(o);
             if (o == null)
@@ -108,6 +114,7 @@ namespace netAvida.Tierra
             {
                 return false;
             }
+            o.setStarted();
             allocated.Remove(o);
             _cpu.start(o);
             addOrganismo(o);
@@ -143,7 +150,7 @@ namespace netAvida.Tierra
             }
         }
 
-        public float getMemoryUsePerc()
+        public override float getMemoryUsePerc()
         {
             return _cpu.getMemoryUsePerc();
         }
@@ -157,10 +164,8 @@ namespace netAvida.Tierra
             float error = 0;
             bool _checkTick = (tick % 500 == 0);
 
-            for (int i = lastSize - 1; i >= 0; i--)
+            for (int i = organismos.Count - 1; i >= 0; i--)
             {
-                if (i < organismos.Count)
-                {
                     try
                     {
                         IOrganismo o = organismos[i];
@@ -170,7 +175,6 @@ namespace netAvida.Tierra
                     {
                         Log.fatal(e.Message);
                     }
-                }
             }
             if (_checkTick)
             {

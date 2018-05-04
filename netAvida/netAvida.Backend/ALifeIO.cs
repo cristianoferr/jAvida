@@ -2,6 +2,7 @@
 using netAvida.backend.interfaces;
 using System.IO;
 using netAvida.backend;
+using System.Reflection;
 
 namespace netAvida.backend
 {
@@ -10,7 +11,9 @@ namespace netAvida.backend
         internal static void saveToFile(IOrganismo organismo)
         {
             string orgCode = organismo.ToString();
-            string path = ALifeConsts.GENEBANK_PATH +"saved/" +ALifeConsts.GENEBANK_PATH + organismo.hash() + ".txt";
+            string path = ALifeConsts.GENEBANK_PATH +"saved\\" + organismo.hash() + ".txt";
+            Directory.CreateDirectory(ALifeConsts.GENEBANK_PATH + "saved\\");
+            path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), path);
             File.WriteAllText(path, orgCode);
             Log.Info("Salvando organismo "+path);
         }
@@ -18,9 +21,10 @@ namespace netAvida.backend
         internal static IOrganismo loadFromFile(string fileName, MundoBase mundo)
         {
             string path = ALifeConsts.GENEBANK_PATH + fileName;
+           // path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), path);
 
             // This text is added only once to the file.
-            if (!File.Exists(path))
+            if (File.Exists(path))
             {
                 // Create a file to write to.
                 string[] readText = File.ReadAllLines(path);

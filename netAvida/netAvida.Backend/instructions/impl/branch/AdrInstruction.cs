@@ -86,7 +86,8 @@ namespace netAvida.Backend.instructions.impl
 
     public override String getDescription(IOrganismo o, int ip)
         {
-            return comment(name + " " + ALifeConsts.getLetter(o.getMemory(ip + 1)), ALifeConsts.getLetter(o.getMemory(ip + 1)) + " <- templatePosition");
+
+            return comment(name + " "  + ALifeConsts.getLetter(o.getMemory(ip + 1)), ALifeConsts.getLetter(o.getMemory(ip + 1)) + " <- templatePosition" + (this.bwd ? "  BACK " : "") + (this.fwd ? " FWD " : ""));
         }
     }
 }

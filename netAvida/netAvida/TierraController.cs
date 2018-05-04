@@ -1,4 +1,5 @@
-﻿using netAvida.interfaces;
+﻿using netAvida.Backend.interfaces;
+using netAvida.interfaces;
 using netAvida.Tierra;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,18 @@ namespace netAvida
         private IReferView frmPrincipal;
         static MundoTierra singleton;
 
-        public TierraController(IReferView tierraViewer)
+        public TierraController(IReferView frmPrincipal, IViewLife drawer)
         {
-            this.frmPrincipal = tierraViewer;
+            this.frmPrincipal = frmPrincipal;
+            this.drawer = drawer;
         }
 
         public void RodaSingleThread()
         {
             GC.Collect();
             singleton = new MundoTierra();
+            singleton.setViewer(drawer);
+            drawer.SetMundo(singleton);
             singleton.runLoop();
         }
 
@@ -28,8 +32,10 @@ namespace netAvida
         {
             GC.Collect();
             singleton = new MundoTierra();
+            drawer.SetMundo(singleton);
+            singleton.setViewer(drawer);
 
-            frmPrincipal.ClearRows("dataGridRuns");
+            //frmPrincipal.ClearRows("dataGridRuns");
             Thread t = new Thread(staticRoda);
             t.Name = "BacktestRunner";
             t.Start();
@@ -65,6 +71,8 @@ namespace netAvida
         }
 
         List<UpdatesToAdd> updatesToAdd = new List<UpdatesToAdd>();
+        private IViewLife drawer;
+
         public void UpdateApplication( int countLoops, int totalLoops)
         {
             UpdatesToAdd updt = new UpdatesToAdd();

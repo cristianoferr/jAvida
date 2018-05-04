@@ -50,13 +50,6 @@ namespace netAvida.interfaces
             c.Rows.Clear();
         }
 
-        public DataGridViewRowCollection GetRows(string v)
-        {
-            DataGridView c = controles[v] as DataGridView;
-            return c.Rows;
-        }
-
-
 
         public bool IsChecked(string v)
         {

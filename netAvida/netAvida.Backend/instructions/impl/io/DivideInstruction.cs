@@ -27,14 +27,6 @@ namespace netAvida.Backend.instructions.impl
                     return;
                 }
 
-                //child veio de um connect...
-                if (o.child.hasStarted)
-                {
-                    o.child.clearParent();
-                    o.clearChild();
-                    o.criticalError();
-                    return;
-                }
                 o.child.parent=o;
                 if (mundo.start(o.child))
                 {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace netAvida.Tierra
 {
-    public class OrganismoTierra: Organismo, IOrganismo
+    public class OrganismoTierra : Organismo, IOrganismo
     {
 
         private int[] regs;
@@ -16,19 +16,19 @@ namespace netAvida.Tierra
         private int startPoint;// readonly
 
 
-        public OrganismoTierra(MundoTierra mundo, int memSize, int sp):base(mundo,memSize,sp)
+        public OrganismoTierra(MundoTierra mundo, int memSize, int sp) : base(mundo, memSize, sp)
         {
             ip = sp;
         }
 
-        
-    public override int getMemory(int i)
+
+        public override int getMemory(int i)
         {
             return mundo.cpu().getMemory(i);
         }
 
-        
-    public override bool setMemory(int index, int v, bool punish)
+
+        public override bool setMemory(int index, int v, bool punish)
         {
             if (index >= sp() && index <= sp() + memorySize)
             {
@@ -54,14 +54,14 @@ namespace netAvida.Tierra
             this.startPoint = i;
         }
 
-        
-    public int sp()
+
+        public override int sp()
         {
             return startPoint;
         }
 
-        
-    protected override void initRegs()
+
+        protected override void initRegs()
         {
             regs = new int[ALifeConsts.REGISTRADORES];
             for (int i = 0; i < ALifeConsts.REGISTRADORES; i++)
@@ -70,38 +70,35 @@ namespace netAvida.Tierra
             }
         }
 
-        
-    public void setReg(int i, int v)
+
+        public override void setReg(int i, int v)
         {
             regs[i % ALifeConsts.REGISTRADORES] = v;
         }
 
 
-        
-    public int getReg(int i)
+
+        public override int getReg(int i)
         {
             return regs[i % ALifeConsts.REGISTRADORES];
         }
 
-        
-    public int getMemorySize()
+
+        public override int getMemorySize()
         {
             return memorySize;
 
         }
 
 
-        
-    public void run()
+
+        public override void run()
         {
             base.run();
 
             int ip = this.ip;
             int _sp = sp();
-            if (ip < _sp || ip > _sp + memorySize)
-            {
-                fatalError();
-            }
+        
         }
 
         protected override void setMemorySize(int memSize)

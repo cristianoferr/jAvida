@@ -93,6 +93,7 @@
     <Compile Include="interfaces\ICPU.cs" />
     <Compile Include="interfaces\IManageInstructions.cs" />
     <Compile Include="interfaces\IOrganismo.cs" />
+    <Compile Include="interfaces\IReferView.cs" />
     <Compile Include="interfaces\IViewLife.cs" />
     <Compile Include="interfaces\IWorld.cs" />
     <Compile Include="Log.cs" />
@@ -107,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="genebank\ancestor.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

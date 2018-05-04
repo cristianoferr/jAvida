@@ -15,24 +15,25 @@ namespace netAvida
     {
         TierraController controller;
         ReferView referView;
+        TerraDrawer drawer;
 
         public TierraViewer()
         {
             InitializeComponent();
-            controller = new TierraController(this);
+            drawer = new TerraDrawer(panelDraw,this);
+            controller = new TierraController(this, drawer);
             RegisterElements();
         }
 
         private void RegisterElements()
         {
             referView = new ReferView();
+            referView.Register("lblOrgs", lblOrgs);
+            referView.Register("lblRatio", lblRatio);
+            
         }
 
         #region IReferView
-        public Control GetControl(string v)
-        {
-            return ((IReferView)referView).GetControl(v);
-        }
 
         void IReferView.ClearList(string v)
         {
@@ -69,10 +70,6 @@ namespace netAvida
             referView.ClearRows(v);
         }
 
-        DataGridViewRowCollection IReferView.GetRows(string v)
-        {
-            return referView.GetRows(v);
-        }
 
         void IReferView.ClearRows(string v)
         {

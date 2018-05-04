@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using netAvida.Backend.interfaces;
 
 namespace netAvida.Tierra
 {
-    public class CPU:ICPU
+    public class CPU : ICPU
     {
         // Memory Instructions (soup)
         private int[] memory;
@@ -20,6 +21,7 @@ namespace netAvida.Tierra
         private int lastDeallocate = 0;
 
         public int allocatedMemory = 0;
+        private IViewLife viewer;
 
         public CPU(IWorld mundo, int memorySize)
         {
@@ -43,6 +45,11 @@ namespace netAvida.Tierra
             }
             allocatedMemory += memSize;
 
+        }
+
+        internal void setViewer(IViewLife viewer)
+        {
+            this.viewer = viewer;
         }
 
         public int getValidMemory(int memSize)
@@ -139,27 +146,21 @@ namespace netAvida.Tierra
 
         private void drawPixel(int pos, Color color, bool top)
         {
-
             int y = pos / TierraConsts.GRAPH_WIDTH;
             int x = pos % TierraConsts.GRAPH_WIDTH;
-            Log.fatal("drawPixel não implementando");
-            /*
-            if (graphics != null)
-            {
-                graphics.setColor(color);
-                int x2 = TierraConsts.GRAPH_OFFSET + x * TierraConsts.GRAPH_SIZE;
-                int y2 = TierraConsts.GRAPH_OFFSET + y * TierraConsts.GRAPH_SIZE;
-                if (top)
-                {
-                    graphics.fillRect(x2, y2, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
-                }
-                else
-                {
-                    int offset = (int)TierraConsts.MEMORY_SIZE / TierraConsts.GRAPH_WIDTH * TierraConsts.GRAPH_SIZE;
-                    graphics.fillRect(x2, y2 + offset, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
-                }
 
-            }*/
+            int x2 = TierraConsts.GRAPH_OFFSET + x * TierraConsts.GRAPH_SIZE;
+            int y2 = TierraConsts.GRAPH_OFFSET + y * TierraConsts.GRAPH_SIZE;
+            if (top)
+            {
+                viewer.drawRect(color, x2, y2, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
+            }
+            else
+            {
+                int offset = (int)TierraConsts.MEMORY_SIZE / TierraConsts.GRAPH_WIDTH * TierraConsts.GRAPH_SIZE;
+                viewer.drawRect(color, x2, y2 + offset, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
+            }
+
         }
 
 

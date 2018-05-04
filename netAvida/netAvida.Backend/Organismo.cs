@@ -22,9 +22,8 @@ namespace netAvida.backend
         protected IOrganismo _child = null;
         protected int memoryPoolCount = 1; // Quantidade de pools, default é 1,
                                            // quando tiver filho é 2
-        int currTask;
         int _age;
-        public int age { get { return age; } }
+        public int age { get { return _age; } }
 
         protected int[] buffer = new int[ALifeConsts.MAX_BUFFER];
         private float _error;
@@ -38,10 +37,8 @@ namespace netAvida.backend
         public int childCount { get { return _childCount; } }
 
         private int lastChildCount;
-        private int childlessCounter = 0;
         private int generation = 0;
 
-        private bool wroteFlag;
         protected float tickError = 0;
 
         int somaInsts = 0;
@@ -81,11 +78,8 @@ namespace netAvida.backend
             _age = 0;
             alive = true;
             lastChildCount = 0;
-            childlessCounter = 0;
             _childCount = 0;
             somaInsts = 0;
-            currTask = 0;
-
         }
 
         public string hash()
@@ -156,7 +150,7 @@ namespace netAvida.backend
         }
 
 
-        public int sp()
+        public virtual int sp()
         {
             Log.fatal("Undefined sp()");
             return 0;
@@ -219,7 +213,7 @@ namespace netAvida.backend
         }
 
 
-        public int getMemorySize()
+        public virtual int getMemorySize()
         {
             Log.fatal("Undefined getMemorySize");
             return 0;
@@ -316,7 +310,7 @@ namespace netAvida.backend
                         + ALifeConsts.numberFormat(_child.getMemorySize()) + " )";
             }
 
-            saida += "\n#" + stacks.debugInfo();
+            saida += Environment.NewLine+"#" + stacks.debugInfo();
             return saida;
         }
 
@@ -338,8 +332,8 @@ namespace netAvida.backend
         {
             string ret = "#jAvida	Id:" + id + " Gen:" + generation + " ChildCount:"
                     + childCount + " Age:" + age + "	Size: "
-                    + getMemorySize() + "\n";
-            ret += "#REGS: " + debugInfo("") + "\n";
+                    + getMemorySize() + Environment.NewLine;
+            ret += "#REGS: " + debugInfo("") + Environment.NewLine;
             return ret;
         }
 
@@ -385,7 +379,7 @@ namespace netAvida.backend
             {
                 name = "" + currentMemory;
             }
-            string s = (i) + ":: [" + currentMemory + "] =" + name + "\n";
+            string s = (i) + ":: [" + currentMemory + "] =" + name + Environment.NewLine;
             if (ip == i)
             {
                 s = ">" + s;
@@ -540,7 +534,7 @@ namespace netAvida.backend
         }
 
 
-        public void run()
+        public virtual void run()
         {
             if (isAlive())
             {
@@ -569,19 +563,6 @@ namespace netAvida.backend
 
         public void checkTick()
         {
-
-            if (lastChildCount == childCount)
-            {
-                childlessCounter++;
-                if (childlessCounter > 3)
-                {
-                    error();
-                }
-            }
-            else
-            {
-                childlessCounter = 0;
-            }
 
             if (_error > ALifeConsts.ERROR_UPPER_LIMIT)
             {
@@ -681,7 +662,7 @@ namespace netAvida.backend
             }
             set
             {
-                parentId = parent.id;
+                parentId = value.id;
                 this.generation = value.getGeneration() + 1;
                 this._parent = value;
             }
