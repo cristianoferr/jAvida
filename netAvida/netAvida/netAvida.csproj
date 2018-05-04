@@ -53,6 +53,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="interfaces\ReferViewMultiThread.cs" />
     <Compile Include="interfaces\ReferView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TerraDrawer.cs" />

@@ -39,11 +39,10 @@ namespace netAvida
             Thread t = new Thread(staticRoda);
             t.Name = "BacktestRunner";
             t.Start();
-            int runs = 0;
             while (t.IsAlive)
             {
                 Thread.Sleep(100);
-                runs = UpdateThreadTick(runs);
+                 UpdateThreadTick();
             }
         }
 
@@ -52,41 +51,13 @@ namespace netAvida
             singleton.runLoop();
         }
 
-        private int UpdateThreadTick(int runs)
+        private void UpdateThreadTick()
         {
             Application.DoEvents();
-            if (updatesToAdd.Count > 0)
-            {
-                int count = updatesToAdd.Count;
-                for (int i = 0; i < count; i++)
-                {
-                    UpdatesToAdd updt = updatesToAdd[i];
-                    runs++;
-                    if (updt != null)
-                        UpdateApplication(runs, updt.totalLoops);
-                }
-                updatesToAdd.Clear();
-            }
-            return runs;
+            frmPrincipal.Update();
         }
 
-        List<UpdatesToAdd> updatesToAdd = new List<UpdatesToAdd>();
         private IViewLife drawer;
 
-        public void UpdateApplication( int countLoops, int totalLoops)
-        {
-            UpdatesToAdd updt = new UpdatesToAdd();
-            updt.countLoops = countLoops;
-            updatesToAdd.Add(updt);
-
-        }
-
-        class UpdatesToAdd
-        {
-
-            public int countLoops { get; set; }
-
-            public int totalLoops { get; set; }
-        }
     }
     }

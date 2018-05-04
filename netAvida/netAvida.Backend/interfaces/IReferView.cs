@@ -8,6 +8,7 @@ namespace netAvida.interfaces
 {
     public interface IReferView
     {
+        void Update();
         void ClearList(string v);
         void AddList(string v, string papel);
         void SetChecked(string v, bool flagCompra);
@@ -20,7 +21,5 @@ namespace netAvida.interfaces
         void SetEnabled(string v1, bool v2);
         void AddItem(string v, Object tradeSystem);
         void SetListItem(string v, int index, Object var);
-        void SetStatus(string v);
-        void SetTitle(string v);
     }
 }

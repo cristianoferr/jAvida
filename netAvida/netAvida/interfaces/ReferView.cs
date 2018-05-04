@@ -17,6 +17,11 @@ namespace netAvida.interfaces
             controles = new Dictionary<string, Control>();
         }
 
+        public void Update()
+        {
+
+        }
+
 
         public Control GetControl(string v)
         {

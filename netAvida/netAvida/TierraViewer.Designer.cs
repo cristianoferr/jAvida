@@ -34,31 +34,31 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMemoria = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnRun = new System.Windows.Forms.Button();
-            this.tabConfig = new System.Windows.Forms.TabPage();
-            this.btnRunSingleThread = new System.Windows.Forms.Button();
-            this.tabDebug = new System.Windows.Forms.TabPage();
             this.panelDraw = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblRatio = new System.Windows.Forms.Label();
+            this.lblOrgs = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRunSingleThread = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
+            this.tabDebug = new System.Windows.Forms.TabPage();
             this.dataGridRuns = new System.Windows.Forms.DataGridView();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.colSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colHash = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colError = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.btnStep = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lblOrgs = new System.Windows.Forms.Label();
-            this.lblRatio = new System.Windows.Forms.Label();
+            this.tabConfig = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabMemoria.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabDebug.SuspendLayout();
-            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRuns)).BeginInit();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -86,6 +86,45 @@
             this.tabMemoria.Text = "Memoria";
             this.tabMemoria.UseVisualStyleBackColor = true;
             // 
+            // panelDraw
+            // 
+            this.panelDraw.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelDraw.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDraw.Location = new System.Drawing.Point(203, 36);
+            this.panelDraw.Name = "panelDraw";
+            this.panelDraw.Size = new System.Drawing.Size(811, 569);
+            this.panelDraw.TabIndex = 2;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.lblRatio);
+            this.panel4.Controls.Add(this.lblOrgs);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(203, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(811, 33);
+            this.panel4.TabIndex = 3;
+            // 
+            // lblRatio
+            // 
+            this.lblRatio.AutoSize = true;
+            this.lblRatio.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblRatio.Location = new System.Drawing.Point(35, 0);
+            this.lblRatio.Name = "lblRatio";
+            this.lblRatio.Size = new System.Drawing.Size(35, 13);
+            this.lblRatio.TabIndex = 1;
+            this.lblRatio.Text = "label1";
+            // 
+            // lblOrgs
+            // 
+            this.lblOrgs.AutoSize = true;
+            this.lblOrgs.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblOrgs.Location = new System.Drawing.Point(0, 0);
+            this.lblOrgs.Name = "lblOrgs";
+            this.lblOrgs.Size = new System.Drawing.Size(35, 13);
+            this.lblOrgs.TabIndex = 0;
+            this.lblOrgs.Text = "label1";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.btnRunSingleThread);
@@ -95,27 +134,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 602);
             this.panel1.TabIndex = 1;
-            // 
-            // btnRun
-            // 
-            this.btnRun.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRun.Location = new System.Drawing.Point(0, 0);
-            this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(200, 33);
-            this.btnRun.TabIndex = 1;
-            this.btnRun.Text = "Start";
-            this.btnRun.UseVisualStyleBackColor = true;
-            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
-            // 
-            // tabConfig
-            // 
-            this.tabConfig.Location = new System.Drawing.Point(4, 22);
-            this.tabConfig.Name = "tabConfig";
-            this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConfig.Size = new System.Drawing.Size(1017, 608);
-            this.tabConfig.TabIndex = 1;
-            this.tabConfig.Text = "Config";
-            this.tabConfig.UseVisualStyleBackColor = true;
             // 
             // btnRunSingleThread
             // 
@@ -128,6 +146,17 @@
             this.btnRunSingleThread.UseVisualStyleBackColor = true;
             this.btnRunSingleThread.Click += new System.EventHandler(this.btnRunSingleThread_Click);
             // 
+            // btnRun
+            // 
+            this.btnRun.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnRun.Location = new System.Drawing.Point(0, 0);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(200, 33);
+            this.btnRun.TabIndex = 1;
+            this.btnRun.Text = "Start";
+            this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            // 
             // tabDebug
             // 
             this.tabDebug.Controls.Add(this.dataGridRuns);
@@ -138,24 +167,6 @@
             this.tabDebug.TabIndex = 2;
             this.tabDebug.Text = "Debug";
             this.tabDebug.UseVisualStyleBackColor = true;
-            // 
-            // panelDraw
-            // 
-            this.panelDraw.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelDraw.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDraw.Location = new System.Drawing.Point(203, 36);
-            this.panelDraw.Name = "panelDraw";
-            this.panelDraw.Size = new System.Drawing.Size(811, 569);
-            this.panelDraw.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.panel2);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(498, 608);
-            this.panel3.TabIndex = 1;
             // 
             // dataGridRuns
             // 
@@ -170,15 +181,6 @@
             this.dataGridRuns.Name = "dataGridRuns";
             this.dataGridRuns.Size = new System.Drawing.Size(519, 608);
             this.dataGridRuns.TabIndex = 2;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btnStep);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(498, 41);
-            this.panel2.TabIndex = 1;
             // 
             // colSize
             // 
@@ -222,6 +224,24 @@
             this.colError.Name = "colError";
             this.colError.ReadOnly = true;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel2);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(498, 608);
+            this.panel3.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnStep);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(498, 41);
+            this.panel2.TabIndex = 1;
+            // 
             // btnStep
             // 
             this.btnStep.Dock = System.Windows.Forms.DockStyle.Left;
@@ -232,35 +252,15 @@
             this.btnStep.Text = "Step";
             this.btnStep.UseVisualStyleBackColor = true;
             // 
-            // panel4
+            // tabConfig
             // 
-            this.panel4.Controls.Add(this.lblRatio);
-            this.panel4.Controls.Add(this.lblOrgs);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(203, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(811, 33);
-            this.panel4.TabIndex = 3;
-            // 
-            // lblOrgs
-            // 
-            this.lblOrgs.AutoSize = true;
-            this.lblOrgs.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblOrgs.Location = new System.Drawing.Point(0, 0);
-            this.lblOrgs.Name = "lblOrgs";
-            this.lblOrgs.Size = new System.Drawing.Size(35, 13);
-            this.lblOrgs.TabIndex = 0;
-            this.lblOrgs.Text = "label1";
-            // 
-            // lblRatio
-            // 
-            this.lblRatio.AutoSize = true;
-            this.lblRatio.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblRatio.Location = new System.Drawing.Point(35, 0);
-            this.lblRatio.Name = "lblRatio";
-            this.lblRatio.Size = new System.Drawing.Size(35, 13);
-            this.lblRatio.TabIndex = 1;
-            this.lblRatio.Text = "label1";
+            this.tabConfig.Location = new System.Drawing.Point(4, 22);
+            this.tabConfig.Name = "tabConfig";
+            this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConfig.Size = new System.Drawing.Size(1017, 608);
+            this.tabConfig.TabIndex = 1;
+            this.tabConfig.Text = "Config";
+            this.tabConfig.UseVisualStyleBackColor = true;
             // 
             // TierraViewer
             // 
@@ -272,13 +272,13 @@
             this.Text = "TierraViewer";
             this.tabControl1.ResumeLayout(false);
             this.tabMemoria.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tabDebug.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridRuns)).EndInit();
-            this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.tabDebug.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridRuns)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
