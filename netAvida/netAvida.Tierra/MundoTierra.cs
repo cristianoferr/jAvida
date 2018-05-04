@@ -124,7 +124,7 @@ namespace netAvida.Tierra
 
             error = (float)Utils.Round(error / lastSize, 2);
 
-            Log.info(tick + ":> Orgs:" + lastSize + " Alloc:" + allocated.Count
+            Log.Info(tick + ":> Orgs:" + lastSize + " Alloc:" + allocated.Count
                     + " [MEM:" + perc + "% Avg:" + avg + " Max:" + maxMemory
                     + " Min:" + minMemory + "] E:" + error + " Freed:" + killCount
                     );

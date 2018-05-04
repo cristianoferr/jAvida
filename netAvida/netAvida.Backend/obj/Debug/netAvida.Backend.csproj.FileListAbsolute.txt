@@ -6,3 +6,4 @@ F:\Java\repositorios\github\jAvida\netAvida\netAvida.Backend\bin\Debug\netAvida.
 F:\Java\repositorios\github\jAvida\netAvida\netAvida.Backend\bin\Debug\log4net.dll
 F:\Java\repositorios\github\jAvida\netAvida\netAvida.Backend\obj\Debug\netAvida.Backend.dll
 F:\Java\repositorios\github\jAvida\netAvida\netAvida.Backend\obj\Debug\netAvida.Backend.pdb
+F:\Java\repositorios\github\jAvida\netAvida\netAvida.Backend\bin\Debug\genebank\ancestor.txt

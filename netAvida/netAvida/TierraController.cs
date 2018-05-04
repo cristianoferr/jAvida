@@ -17,7 +17,14 @@ namespace netAvida
             this.frmPrincipal = tierraViewer;
         }
 
-        private void Roda()
+        public void RodaSingleThread()
+        {
+            GC.Collect();
+            singleton = new MundoTierra();
+            singleton.runLoop();
+        }
+
+        public void Roda()
         {
             GC.Collect();
             singleton = new MundoTierra();

@@ -107,6 +107,10 @@ namespace netAvida.backend
             return Char.ToString((char)(65 + i % REGISTRADORES));
         }
 
+        public static int getLetterNumber(char p)
+        {
+            return (p - 65);
+        }
         public static int calcIndex(int i, int max)
         {
             while (i < 0 && max > 0)

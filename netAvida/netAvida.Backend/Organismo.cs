@@ -15,6 +15,8 @@ namespace netAvida.backend
         private int _oid = 0;
         public int id { get; set; }
 
+        
+
         protected IWorld mundo;
         private Pilha stacks;
         protected IOrganismo _child = null;
@@ -84,6 +86,19 @@ namespace netAvida.backend
             somaInsts = 0;
             currTask = 0;
 
+        }
+
+        public string hash()
+        {
+            string saida = getMemorySize() + "_";
+            while (saida.Length < 4)
+            {
+                saida = "0" + saida;
+            }
+            int soma = somaInstructions() * getMemorySize();
+            saida = saida + ALifeConsts.toHexString(soma);
+
+            return saida;
         }
 
         protected virtual void setMemorySize(int memSize)

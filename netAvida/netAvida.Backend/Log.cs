@@ -4,19 +4,28 @@ namespace netAvida.backend
 {
     public class Log
     {
-        public static void info(object p)
+
+        static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public static void Info(string msg)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("[INFO] " + msg);
+            log.Info(msg);
         }
 
-        public static void fatal(string v)
+        public static void fatal(string msg)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("[ERROR] " + msg);
+            log.Fatal(msg);
+
         }
 
-        public static void error(string v)
+        public static void error(string msg)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("[ERROR] " + msg);
+            log.Error(msg);
         }
+
+        
     }
 }

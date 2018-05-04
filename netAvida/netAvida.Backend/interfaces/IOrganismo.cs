@@ -11,10 +11,11 @@ namespace netAvida.backend.interfaces
 
         int getMemory(int reg);
 
-        bool hasStarted{ get; set; }
+        bool hasStarted { get; set; }
 
+        void addFitness(float f);
 
-    void addFitness(float f);
+        string hash();
 
         bool setMemory(int regVal, int inst);
 

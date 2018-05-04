@@ -108,44 +108,17 @@ namespace netAvida
         }
         #endregion IReferView
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnValidaCandidatos_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRodaGP_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRodaSingleGP_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRodaSingle_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbTradeSystem_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+            controller.Roda();
 
         }
 
-        private void btnRun_Click_1(object sender, EventArgs e)
+        private void btnRunSingleThread_Click(object sender, EventArgs e)
         {
-
+            controller.RodaSingleThread();
         }
     }
 }

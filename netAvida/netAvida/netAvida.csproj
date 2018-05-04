@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="interfaces\IReferView.cs" />
     <Compile Include="interfaces\ReferView.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="TierraController.cs" />
     <Compile Include="TierraViewer.cs">
       <SubType>Form</SubType>

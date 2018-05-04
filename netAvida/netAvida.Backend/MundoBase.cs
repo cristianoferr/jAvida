@@ -35,7 +35,7 @@ namespace netAvida.backend
             initSettings();
             mutation = new MutationControl(this);
             instructionManager = initInstructions();
-            Log.info("Instructions: " + instructions.Count);
+            Log.Info("Instructions: " + instructions.Count);
             settings.getInstructionCount = instructions.Count;
 
         }
@@ -305,7 +305,7 @@ namespace netAvida.backend
 
         public void save()
         {
-            Log.info("Saving...");
+            Log.Info("Saving...");
             foreach (IOrganismo org in organismos)
             {
                 if (org.childCount > 10)

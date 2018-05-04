@@ -30,9 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRun = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnRunSingleThread = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -59,20 +60,10 @@
             this.tabPage.TabIndex = 0;
             this.tabPage.Text = "Memoria";
             this.tabPage.UseVisualStyleBackColor = true;
-            this.tabPage.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1017, 608);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Config";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnRunSingleThread);
             this.panel1.Controls.Add(this.btnRun);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -89,7 +80,28 @@
             this.btnRun.TabIndex = 1;
             this.btnRun.Text = "Start";
             this.btnRun.UseVisualStyleBackColor = true;
-            this.btnRun.Click += new System.EventHandler(this.btnRun_Click_1);
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1017, 608);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Config";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnRunSingleThread
+            // 
+            this.btnRunSingleThread.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnRunSingleThread.Location = new System.Drawing.Point(0, 33);
+            this.btnRunSingleThread.Name = "btnRunSingleThread";
+            this.btnRunSingleThread.Size = new System.Drawing.Size(200, 33);
+            this.btnRunSingleThread.TabIndex = 2;
+            this.btnRunSingleThread.Text = "Start Single Thread";
+            this.btnRunSingleThread.UseVisualStyleBackColor = true;
+            this.btnRunSingleThread.Click += new System.EventHandler(this.btnRunSingleThread_Click);
             // 
             // TierraViewer
             // 
@@ -113,5 +125,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Button btnRun;
+        public System.Windows.Forms.Button btnRunSingleThread;
     }
 }

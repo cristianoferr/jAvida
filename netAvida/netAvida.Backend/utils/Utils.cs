@@ -12,9 +12,7 @@ namespace netAvida.backend
 
 
 
-
-        static readonly log4net.ILog log =
-            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        
 
         public static string getFormulaNameFromCode(string code)
         {
@@ -63,17 +61,7 @@ namespace netAvida.backend
         }
 
 
-        public static void Info(string msg)
-        {
-            Console.WriteLine("[INFO] " + msg);
-            log.Info(msg);
-        }
-
-        public static void Error(string msg)
-        {
-            Console.WriteLine("[ERROR] " + msg);
-            log.Error(msg);
-        }
+       
 
         static Random rnd = new Random();
         public static float Random(float min, float max)
@@ -112,7 +100,7 @@ namespace netAvida.backend
 
         public static void println(string p)
         {
-            Utils.Info(p);
+            Log.Info(p);
 
         }
 
