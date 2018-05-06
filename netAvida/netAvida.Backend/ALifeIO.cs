@@ -10,12 +10,12 @@ namespace netAvida.backend
     {
         internal static void saveToFile(IOrganismo organismo)
         {
-            string orgCode = organismo.ToString();
+          /*  string orgCode = organismo.ToString();
             string path = ALifeConsts.GENEBANK_PATH +"saved\\" + organismo.hash() + ".txt";
             Directory.CreateDirectory(ALifeConsts.GENEBANK_PATH + "saved\\");
             path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), path);
             File.WriteAllText(path, orgCode);
-            Log.Info("Salvando organismo "+path);
+            Log.Info("Salvando organismo "+path);*/
         }
 
         internal static IOrganismo loadFromFile(string fileName, MundoBase mundo)

@@ -1,5 +1,7 @@
 ﻿using netAvida.backend.interfaces;
+using netAvida.Backend.instructions;
 using netAvida.Backend.interfaces;
+using netAvida.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,8 +38,6 @@ namespace netAvida.backend
             mutation = new MutationControl(this);
             instructionManager = initInstructions();
             Log.Info("Instructions: " + instructions.Count);
-            settings.getInstructionCount = instructions.Count;
-
         }
 
         public IOrganismo getFromRecycle(int memSize, int sp)
@@ -54,11 +54,14 @@ namespace netAvida.backend
                  * getFromRecycle(memSize, sp); }
                  */
                 o.reset(memSize, sp);
+                o.createOid();
             }
             return o;
         }
 
         protected abstract void initSettings();
+
+        private IReferView referView;
 
         public void addInstruction(int id, string name, Instruction inst)
         {
@@ -72,6 +75,10 @@ namespace netAvida.backend
             this.viewer = avidaViewer;
         }
 
+        public void setRefer(IReferView referView)
+        {
+            this.referView = referView;
+        }
 
         public IList<IOrganismo> getOrganismos()
         {
@@ -114,6 +121,8 @@ namespace netAvida.backend
                 o = ALifeIO.loadFromFile(fileName, this);
                 o.setStarted();
                 start(o);
+                referView.AddOrganismo(o);
+
             }
             catch (Exception e)
             {
@@ -139,6 +148,7 @@ namespace netAvida.backend
                 // Log.debug("Adding program:" + o.oid());
                 organismos.Add(o);
                 organismosMap.Add(o.id, o);
+                referView.AddOrganismo(o);
                 if (recycleBin.Contains(o))
                 {
                     Log.error("Program is present on the recycle bin: " + o.oid);
@@ -182,23 +192,25 @@ namespace netAvida.backend
                 dealloc(o);
                 return false;
             }
-
+            
             return true;
         }
 
 
         public virtual void dealloc(IOrganismo o)
         {
-            Log.Info("Dealloc: " + o.oid);
+            //Log.Info("Dealloc: " + o.oid);
             if (o == null)
             {
                 return;
             }
             organismos.Remove(o);
+            referView.RemoveOrganismo(o);
             organismosMap.Remove(o.id);
-            if (!o.isAlive())
+            
+            if (o.child != null)
             {
-                return;
+                dealloc(o.child);
             }
             o.clearChild();
             killCount++;
@@ -265,10 +277,6 @@ namespace netAvida.backend
             maxMemory = 0;
             minMemory = 0;
 
-            if (viewer != null)
-            {
-                viewer.repaint();
-            }
         }
 
         protected virtual void checkTick(float error, float totalMemory, int maxMemory,
@@ -276,7 +284,7 @@ namespace netAvida.backend
         {
             if (viewer != null)
             {
-                viewer.checkTick();
+                viewer.CheckTick();
             }
             /*if (tick%5==0) {
                 ALifeIO.cleanUpGenebank(this);
@@ -351,6 +359,8 @@ namespace netAvida.backend
 
         public Instruction getInstruction(int id)
         {
+            if (id > InstructionBuilderBase.instructionCount) return null;
+            if (id < InstructionBuilderBase.minInstructionID) return null;
             return instructions[id];
         }
 

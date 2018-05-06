@@ -15,7 +15,7 @@ namespace netAvida.Tierra
         public const int STACKS = 2;
         public const int MAX_STACK = 32;//qtd maxima por pilha
 
-        public const int MEMORY_SIZE = 220000;
+        public const int MEMORY_SIZE = 256*1000;
 
         public const int MAX_BUFFER = 16;
 
@@ -24,7 +24,7 @@ namespace netAvida.Tierra
         public const int NORMAL_FITNESS = 1;//rewarded to cells
         public const float MEMORY_USE = 80f;
 
-        public const int GRAPH_WIDTH = 900;
+        public const int GRAPH_WIDTH = 600;
         public const int GRAPH_SIZE = 2;
         public const int GRAPH_OFFSET = 10;
 

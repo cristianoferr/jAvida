@@ -1,4 +1,5 @@
-﻿using System;
+﻿using netAvida.backend.interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,8 @@ namespace netAvida.interfaces
         void SetEnabled(string v1, bool v2);
         void AddItem(string v, Object tradeSystem);
         void SetListItem(string v, int index, Object var);
+
+        void RemoveOrganismo(IOrganismo o);
+        void AddOrganismo(IOrganismo o);
     }
 }

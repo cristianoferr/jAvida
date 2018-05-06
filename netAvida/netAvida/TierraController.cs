@@ -24,6 +24,7 @@ namespace netAvida
             GC.Collect();
             singleton = new MundoTierra();
             singleton.setViewer(drawer);
+            singleton.setRefer(frmPrincipal);
             drawer.SetMundo(singleton);
             singleton.runLoop();
         }
@@ -34,6 +35,7 @@ namespace netAvida
             singleton = new MundoTierra();
             drawer.SetMundo(singleton);
             singleton.setViewer(drawer);
+            singleton.setRefer(frmPrincipal);
 
             //frmPrincipal.ClearRows("dataGridRuns");
             Thread t = new Thread(staticRoda);
@@ -55,6 +57,7 @@ namespace netAvida
         {
             Application.DoEvents();
             frmPrincipal.Update();
+            drawer.Update();
         }
 
         private IViewLife drawer;

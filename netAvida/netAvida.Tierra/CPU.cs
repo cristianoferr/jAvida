@@ -18,7 +18,7 @@ namespace netAvida.Tierra
         private int[] memoryUse;
         public int memorySize;
         private IWorld mundo;
-        private int lastDeallocate = 0;
+        public int lastDeallocate = 0;
 
         public int allocatedMemory = 0;
         private IViewLife viewer;
@@ -106,24 +106,24 @@ namespace netAvida.Tierra
             int calcIndex = ALifeConsts.calcIndex(pos, memorySize);
             memoryUse[calcIndex] = id;
             // if (id<0){
-            drawPixel(calcIndex, id < 0 ? Color.Black : Color.Red, false);
+            //drawPixel(calcIndex, id < 0 ? Color.Black : Color.Red, false);
             // }
         }
 
         public void start(IOrganismo o)
         {
             Color cor = Color.Blue;
-            drawOwner(o, cor);
+           // drawOwner(o, cor);
         }
 
-        private void drawOwner(IOrganismo o, Color cor)
+        private void DrawOwner(IOrganismo o, int cor)
         {
             int ini = o.sp();
             int size = o.getMemorySize();
             for (int i = ini; i < ini + size; i++)
             {
                 int calcIndex = ALifeConsts.calcIndex(i, memorySize);
-                drawPixel(calcIndex, cor, false);
+                DrawPixel(calcIndex, 255, false);
             }
         }
 
@@ -136,15 +136,10 @@ namespace netAvida.Tierra
             }
             memory[calcIndex] = v;
 
-            Instruction i = mundo.getInstruction(v);
-            if (i != null)
-            {
-                Color color = i.getColor();
-                drawPixel(calcIndex, color, true);
-            }
+            DrawPixel(calcIndex, v, true);
         }
 
-        private void drawPixel(int pos, Color color, bool top)
+        private void DrawPixel(int pos, int value, bool top)
         {
             int y = pos / TierraConsts.GRAPH_WIDTH;
             int x = pos % TierraConsts.GRAPH_WIDTH;
@@ -153,12 +148,12 @@ namespace netAvida.Tierra
             int y2 = TierraConsts.GRAPH_OFFSET + y * TierraConsts.GRAPH_SIZE;
             if (top)
             {
-                viewer.drawRect(color, x2, y2, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
+                viewer.DrawRect(value, x2, y2, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
             }
             else
             {
                 int offset = (int)TierraConsts.MEMORY_SIZE / TierraConsts.GRAPH_WIDTH * TierraConsts.GRAPH_SIZE;
-                viewer.drawRect(color, x2, y2 + offset, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
+                viewer.DrawRect(value, x2, y2 + offset, TierraConsts.GRAPH_SIZE, TierraConsts.GRAPH_SIZE);
             }
 
         }
@@ -173,10 +168,9 @@ namespace netAvida.Tierra
                 if (getMemoryOwner(sp + i) > 0)
                 {
                     setMemoryOwner(sp + i, -1);
-                    // setMemory(sp + i, 0);
 
-                    drawPixel(sp + i, Color.Black, true);
-                    //Log.error("Memoria desalocada");
+                    //setMemory(sp + i, 0);
+
                     allocatedMemory--;
                 }
             }

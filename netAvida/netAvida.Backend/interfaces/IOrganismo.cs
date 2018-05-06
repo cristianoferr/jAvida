@@ -15,9 +15,11 @@ namespace netAvida.backend.interfaces
 
         void addFitness(float f);
 
-        string hash();
+        void createOid();
 
-        bool setMemory(int regVal, int inst);
+        Pilha GetPilha();
+
+        string hash();
 
         void fillTemplate(int sp);
 
@@ -82,7 +84,7 @@ namespace netAvida.backend.interfaces
 
         void checkTick();
 
-        void run();
+        Instruction run();
 
         IOrganismo parent { get; set; }
 
@@ -94,7 +96,7 @@ namespace netAvida.backend.interfaces
 
         Instruction getInstructionAt(int i);
 
-        bool setMemory(int index, int v, bool punish);
+        bool setMemory(int index, int v, bool punish=true);
 
         void clearParent();
 

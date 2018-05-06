@@ -71,7 +71,7 @@ namespace netAvida.Backend.instructions.impl
         {
             if (pos >= 0)
             {
-                o.setReg(getByteOrganismo(o, 1), pos);
+                o.ip=pos - 1;
             }
             else
             {

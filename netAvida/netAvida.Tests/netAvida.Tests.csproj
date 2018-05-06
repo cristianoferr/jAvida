@@ -46,13 +46,29 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainTests.cs" />
+    <Compile Include="MockReferView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\netAvida.Backend\netAvida.Backend.csproj">
+      <Project>{6fe4e55e-3b58-488b-adee-4a8a6ef17bc3}</Project>
+      <Name>netAvida.Backend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netAvida.Tierra\netAvida.Tierra.csproj">
+      <Project>{4715ff89-3d97-4116-8721-e6fa8fcd0746}</Project>
+      <Name>netAvida.Tierra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\netAvida\netAvida.csproj">
+      <Project>{fa0f2f1d-14fd-4fc9-b5b2-7d0f2659ddf0}</Project>
+      <Name>netAvida</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

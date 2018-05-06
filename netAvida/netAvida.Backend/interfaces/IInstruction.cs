@@ -18,9 +18,6 @@ namespace netAvida.backend
 
         String getName();
 
-        Color getColor();
-
-
         int getStep();
 
         String getDescription(IOrganismo o, int ip);

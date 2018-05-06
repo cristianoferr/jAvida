@@ -21,18 +21,6 @@ namespace netAvida.Backend.instructions.impl
         {
         }
 
-
-        public override void setId(int n)
-        {
-            base.setId(n);
-            if (to == 0)
-            {
-                color = Color.White;
-            }
-            else
-            {
-                color = Color.Gray;
-            }
-        }
+        
     }
 }

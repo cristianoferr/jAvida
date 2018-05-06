@@ -107,6 +107,9 @@
     <Compile Include="WorldSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="genebank\ancestor_test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="genebank\ancestor.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

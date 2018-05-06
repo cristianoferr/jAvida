@@ -24,6 +24,10 @@ namespace netAvida.backend
             stack[pos] = i;
             pos++;
         }
+        public int GetAtPos(int i)
+        {
+            return stack[i];
+        }
         public int pop()
         {
             pos--;
@@ -42,6 +46,11 @@ namespace netAvida.backend
                 s += ALifeConsts.numberFormat(stack[i]) + " | ";
             }
             return s;
+        }
+
+        public int Size()
+        {
+            return pos;
         }
     }
 }

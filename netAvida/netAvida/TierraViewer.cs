@@ -1,4 +1,6 @@
-﻿using netAvida.interfaces;
+﻿using netAvida.backend;
+using netAvida.interfaces;
+using netAvida.Tierra;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,13 +17,13 @@ namespace netAvida
     {
         TierraController controller;
         ReferViewMultiThread referView;
-        TerraDrawer drawer;
+        TerraDrawerMultiThread drawer;
 
         public TierraViewer()
         {
             InitializeComponent();
             RegisterElements();
-            drawer = new TerraDrawer(panelDraw, referView);
+            drawer = new TerraDrawerMultiThread(panelDraw, referView, TierraConsts.MEMORY_SIZE);
             controller = new TierraController(referView, drawer);
         }
 
@@ -30,7 +32,8 @@ namespace netAvida
             referView = new ReferViewMultiThread();
             referView.Register("lblOrgs", lblOrgs);
             referView.Register("lblRatio", lblRatio);
-            
+            referView.Register("dataGridOrgs", dataGridOrgs);
+
         }
 
         private void btnRun_Click(object sender, EventArgs e)
@@ -42,6 +45,11 @@ namespace netAvida
         private void btnRunSingleThread_Click(object sender, EventArgs e)
         {
             controller.RodaSingleThread();
+        }
+
+        private void panelDraw_Paint(object sender, PaintEventArgs e)
+        {
+            drawer.Repaint();
         }
     }
 }

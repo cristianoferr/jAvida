@@ -7,18 +7,16 @@ namespace netAvida.backend
 {
     public class ALifeConsts
     {
+        public static bool starting = false;
         public static float MAX_MEMORY_CHILD = 1.5f;
         public static float MIN_MEMORY_CHILD = 0.5f;
         public static string GENEBANK_PATH="genebank\\";
 
 	    public static int IP_REG = 3;
 
-        public static int GRAPH_WIDTH = 900;
-        public static int GRAPH_SIZE = 1;
-
         public static int TEMPLATE_LIMIT = 1024;
 
-        public static int REGISTRADORES = 10;
+        public static int REGISTRADORES = 8;
         public static int STACKS = 2;
 
         internal static float random()

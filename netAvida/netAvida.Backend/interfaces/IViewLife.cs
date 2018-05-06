@@ -10,22 +10,24 @@ namespace netAvida.Backend.interfaces
 {
     public interface IViewLife
     {
-        void drawRect(Color cor, int x, int y, int graphWidth, int graphWidth2);
+        void DrawRect(int value, int x, int y, int graphWidth, int graphWidth2);
 
-        void showDetails(IOrganismo o);
+        void ShowDetails(IOrganismo o);
 
-        void repaint();
+        void Update();
 
-        void checkTick();
+        void CheckTick();
 
-        void transpRect(int i, int j, int p, int p2);
+        void TranspRect(int i, int j, int p, int p2);
 
-        int selectedOrgId();
+        int SelectedOrgId();
 
-        void drawCircle(Color red, int x, int y, int i, int j);
+        void DrawCircle(int value, int x, int y, int i, int j);
 
-        void drawLine(Color cor, int x1, int y1, int x2, int y2);
+        void DrawLine(int value, int x1, int y1, int x2, int y2);
         void SetMundo(IWorld world);
-        void setSelected(IOrganismo o);
+        void SetSelected(IOrganismo o);
+
+        
     }
 }

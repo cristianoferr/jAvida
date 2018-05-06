@@ -1,4 +1,5 @@
 ﻿using netAvida.backend.interfaces;
+using netAvida.Backend.instructions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,7 @@ namespace netAvida.backend
         // chamado cada vez que uma instrução é gravada em memoria
         public int mutateInstruction(int inst, IOrganismo o)
         {
-            float rnd = Utils.Random(0,1);
+            double rnd = Utils.RandomDouble();
             float mutationChance = calcMutationChance(settings.writeInstructionMutationChance, o);
             if (rnd < mutationChance)
             {
@@ -39,8 +40,7 @@ namespace netAvida.backend
                         / (settings.occupationRatio * settings.maxOrganismos);
                 return ratio * mutationChance;
             }
-
-        
+            
             return 0;
         }
 
@@ -49,7 +49,7 @@ namespace netAvida.backend
         // chances)
         public void divisionMutation(IOrganismo o)
         {
-            float rnd = Utils.Random(0,1);
+            double rnd = Utils.RandomDouble();
             float mutationChance = calcMutationChance(settings.getDivisionMutationChance, o);
             if (rnd < mutationChance)
             {
@@ -65,7 +65,7 @@ namespace netAvida.backend
         // chamado a cada tick
         public void randomMutation(IOrganismo o)
         {
-            double random = Utils.Random(0, 1);
+            double random = Utils.RandomDouble();
             float mutationChance = calcMutationChance(settings.getRandomMutation, o);
             if (random < mutationChance)
             {
@@ -83,6 +83,7 @@ namespace netAvida.backend
             int memPos = Utils.RandomInt(-10, 10);
 
             int index = o.ip + memPos;
+            if (index < o.sp()) index = o.sp();
             int inst = o.getMemory(index);
             inst = changeInstruction(inst);
             o.setMemory(index, inst);
@@ -90,22 +91,16 @@ namespace netAvida.backend
 
         private int changeInstruction(int inst)
         {
-            int instChange = Utils.RandomInt(-10, 10);
+            int instChange = Utils.RandomInt(-2, 2);
             inst += instChange;
-            if (inst < 0)
-            {
-                inst = Utils.RandomInt(2, 10);
-            }
-            if (inst >= settings.getInstructionCount)
-            {
-                inst -= Utils.RandomInt(2, 10);
-            }
+            if (inst > 255) inst = 255;
+            if (inst < 0) inst = 0;
             return inst;
         }
 
         public void randomPosition(int memoryPos)
         {
-            int rnd = Utils.RandomInt(0, settings.getInstructionCount);
+            int rnd = Utils.RandomInt(InstructionBuilderBase.minInstructionID, InstructionBuilderBase.instructionCount);
             mundo.cpu().setMemory(memoryPos, rnd);
 
         }
@@ -113,7 +108,7 @@ namespace netAvida.backend
         // chamado quando o erro do organismo excedeu o limite definido
         public void errorLimitAction(IOrganismo o)
         {
-            float rnd = Utils.Random(0,1);
+            double rnd = Utils.RandomDouble();
             float error = o.getError();
             float ratio = error / settings.getErrorLimit;
             float mutationChance = calcMutationChance(settings.errorKillChance

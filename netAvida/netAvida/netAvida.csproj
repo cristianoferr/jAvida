@@ -53,10 +53,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="interfaces\ReferViewMultiThread.cs" />
-    <Compile Include="interfaces\ReferView.cs" />
+    <Compile Include="drawer\TerraDrawerMultiThread.cs" />
+    <Compile Include="referView\ReferViewMultiThread.cs" />
+    <Compile Include="referView\ReferView.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="TerraDrawer.cs" />
+    <Compile Include="drawer\TerraDrawer.cs" />
     <Compile Include="TierraController.cs" />
     <Compile Include="TierraViewer.cs">
       <SubType>Form</SubType>

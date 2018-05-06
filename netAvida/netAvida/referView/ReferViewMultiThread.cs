@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using netAvida.backend.interfaces;
 
 namespace netAvida.interfaces
 {
@@ -14,13 +15,20 @@ namespace netAvida.interfaces
         public string value;
         public object valueObj;
         public int intVal;
-
+        public IOrganismo o;
 
         public DelayedAction(string action, string key)
         {
             this.action = action;
             this.key = key;
         }
+
+        public DelayedAction(string action, IOrganismo o)
+        {
+            this.action = action;
+            this.o = o;
+        }
+
         public DelayedAction(string action, string key, string value):this(action,key)
         {
             this.value = value;
@@ -49,48 +57,64 @@ namespace netAvida.interfaces
 
         public void Update()
         {
-            foreach (DelayedAction action in actions)
+            int size = actions.Count - 1;
+            int pos = 0;
+            while (pos<=size)
             {
-                if (action.action== "AddList")
+                DelayedAction action = actions[0];
+                if (action != null)
                 {
-                    view.AddList(action.key, action.value);
-                }
-                else if (action.action == "ClearList")
-                {
-                    view.ClearList(action.key );
-                }
-                else if (action.action == "ClearRows")
-                {
-                    view.ClearRows(action.key );
-                }
-                else if (action.action == "SetChecked")
-                {
-                    view.SetChecked(action.key,action.value=="T");
-                }
-                else if (action.action == "SetText")
-                {
-                    view.SetText(action.key, action.value);
-                }
-                else if (action.action == "SetVisible")
-                {
-                    view.SetVisible(action.key, action.value == "T");
-                }
-                else if (action.action == "SetEnabled")
-                {
-                    view.SetEnabled(action.key, action.value == "T");
-                }
-                else if (action.action == "AddItem")
-                {
-                    view.AddItem(action.key, action.valueObj);
-                }
-                else if (action.action == "SetListItem")
-                {
-                    view.SetListItem(action.key, action.intVal, action.valueObj);
+                    if (action.action == "AddList")
+                    {
+                        view.AddList(action.key, action.value);
+                    }
+                    else if (action.action == "ClearList")
+                    {
+                        view.ClearList(action.key);
+                    }
+                    else if (action.action == "ClearRows")
+                    {
+                        view.ClearRows(action.key);
+                    }
+                    else if (action.action == "SetChecked")
+                    {
+                        view.SetChecked(action.key, action.value == "T");
+                    }
+                    else if (action.action == "SetText")
+                    {
+                        view.SetText(action.key, action.value);
+                    }
+                    else if (action.action == "SetVisible")
+                    {
+                        view.SetVisible(action.key, action.value == "T");
+                    }
+                    else if (action.action == "SetEnabled")
+                    {
+                        view.SetEnabled(action.key, action.value == "T");
+                    }
+                    else if (action.action == "AddItem")
+                    {
+                        view.AddItem(action.key, action.valueObj);
+                    }
+                    else if (action.action == "SetListItem")
+                    {
+                        view.SetListItem(action.key, action.intVal, action.valueObj);
+                    }
+                    else if (action.action == "AddOrganismo")
+                    {
+                        view.AddOrganismo(action.o);
+                    }
+                    else if (action.action == "RemoveOrganismo")
+                    {
+                        view.RemoveOrganismo( action.o);
+                    }
                 }
 
-
+                pos++;
+                actions.RemoveAt(0);
             }
-            actions.Clear();
+            //actions.Clear();
+            view.Update();
         }
 
 
@@ -115,6 +139,11 @@ namespace netAvida.interfaces
         private void AddDelayedIntObject(string action, string key, int index, object var)
         {
             actions.Add(new DelayedAction(action, key, index,var));
+        }
+
+        private void AddDelayed(string action, IOrganismo o)
+        {
+            actions.Add(new DelayedAction(action, o));
         }
 
         public void AddList(string v, string papel)
@@ -182,6 +211,18 @@ namespace netAvida.interfaces
         public void Register(string key, Control obj)
         {
             view.Register(key, obj);
+        }
+
+        void IReferView.RemoveOrganismo(IOrganismo o)
+        {
+            AddDelayed("RemoveOrganismo", o);
+        }
+
+      
+
+        void IReferView.AddOrganismo(IOrganismo o)
+        {
+            AddDelayed("AddOrganismo",o);
         }
     }
 }

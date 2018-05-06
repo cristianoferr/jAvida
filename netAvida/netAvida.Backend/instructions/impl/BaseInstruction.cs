@@ -13,7 +13,6 @@ namespace netAvida.Backend.instructions.impl
     {
         protected string name = "";
         private int id;
-        protected Color color;
         protected IWorld mundo;
         public BaseInstruction(IWorld mundo)
         {
@@ -30,7 +29,7 @@ namespace netAvida.Backend.instructions.impl
         public virtual void setId(int n)
         {
             this.id = n;
-            color = Color.FromArgb(n * 500);
+            
         }
 
         public int getId()
@@ -47,12 +46,6 @@ namespace netAvida.Backend.instructions.impl
         public string tostring()
         {
             return name;
-        }
-
-
-        public Color getColor()
-        {
-            return color;
         }
 
 

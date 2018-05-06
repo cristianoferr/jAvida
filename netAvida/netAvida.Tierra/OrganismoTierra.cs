@@ -91,16 +91,6 @@ namespace netAvida.Tierra
         }
 
 
-
-        public override void run()
-        {
-            base.run();
-
-            int ip = this.ip;
-            int _sp = sp();
-        
-        }
-
         protected override void setMemorySize(int memSize)
         {
             this.memorySize = memSize;

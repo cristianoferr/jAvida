@@ -64,9 +64,14 @@ namespace netAvida.backend
        
 
         static Random rnd = new Random();
+        public static double RandomDouble()
+        {
+            return rnd.NextDouble();
+        }
         public static float Random(float min, float max)
         {
-            return rnd.Next((int)min * 1000, (int)max * 1000) / 1000f;
+            
+            return rnd.Next((int)min * 10000, (int)max * 10000) / 10000f;
         }
 
         public static int RandomInt(float min, float max)

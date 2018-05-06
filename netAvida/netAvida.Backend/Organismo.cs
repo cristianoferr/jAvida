@@ -15,8 +15,6 @@ namespace netAvida.backend
         private int _oid = 0;
         public int id { get; set; }
 
-        
-
         protected IWorld mundo;
         private Pilha stacks;
         protected IOrganismo _child = null;
@@ -45,15 +43,25 @@ namespace netAvida.backend
         protected MutationControl mutation;
         protected int childId;
 
-        public Organismo(IWorld mundo, int memSize, int sp)
+        public void createOid()
         {
             _oid = ++objCount;
+        }
+
+        public Organismo(IWorld mundo, int memSize, int sp)
+        {
+            createOid();
             this.mundo = mundo;
             initMemory();
 
             mutation = mundo.getMutation();
             initRegs();
             reset(memSize, sp);
+        }
+
+        public Pilha GetPilha()
+        {
+            return stacks;
         }
 
         protected virtual void initMemory()
@@ -170,12 +178,6 @@ namespace netAvida.backend
         }
 
 
-        public virtual bool setMemory(int index, int v)
-        {
-            return setMemory(index, v, true);
-        }
-
-
         public virtual void setReg(int i, int v)
         {
             Log.fatal("Undefined setReg");
@@ -220,7 +222,7 @@ namespace netAvida.backend
         }
 
 
-        public virtual bool setMemory(int index, int v, bool punish)
+        public virtual bool setMemory(int index, int v, bool punish=true)
         {
             return false;
         }
@@ -534,17 +536,19 @@ namespace netAvida.backend
         }
 
 
-        public virtual void run()
+        public virtual Instruction run()
         {
+            Instruction instruction = null;
             if (isAlive())
             {
-                tick();
+                instruction=tick();
                 mutation.errorLimitAction(this);
                 mutation.randomMutation(this);
             }
+            return instruction;
         }
 
-        private void tick()
+        private Instruction tick()
         {
             Instruction instruction = getInstruction();
             int step = 1;
@@ -558,6 +562,7 @@ namespace netAvida.backend
                 criticalError();
             }
             next(step);
+            return instruction;
         }
 
 

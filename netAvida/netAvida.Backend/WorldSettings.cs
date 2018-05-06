@@ -66,26 +66,21 @@ namespace netAvida.backend
             }
         }
 
-        public float taskCompleteBonusFitness = 50;
-        public float taskCompleteBonusEnergy = 1000;
-
         //usado para calcular o 
-        public float occupationRatio = 0.75f;
+        public float occupationRatio = 5.95f;
 
-        public float memoryUseLimitPerc = 95;
+        public float memoryUseLimitPerc = 50;
 
-        public float writeInstructionMutationChance = 0.08f;
+        public float writeInstructionMutationChance = 0.0004f;
 
 
-        public float getDivisionMutationChance = 0.2f;
+        public float getDivisionMutationChance = 0.02f;
 
-        public float getRandomMutation = 0.0005f;// applied each tick
-
-        public int getInstructionCount = 0;
+        public float getRandomMutation = 0.0002f;// applied each tick
 
         public float getErrorLimit = 2800;
 
-        public float errorKillChance = 0.01f;
+        public float errorKillChance = 0.001f;
 
         public float errorCritical = 100;
 

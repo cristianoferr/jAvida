@@ -13,7 +13,9 @@ namespace netAvida.Backend.instructions
     public class InstructionBuilderBase: IManageInstructions
     {
 
-        public static int instructionCount = -1;
+        public static int minInstructionID = 200;
+        //comecando com um valor alto
+        public static int instructionCount = minInstructionID-1;
 
         // arithmetic
         public const string INSTR_SHL = "SHL";

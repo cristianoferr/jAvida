@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using netAvida.interfaces;
 
 namespace netAvida.Tierra
 {
@@ -13,7 +14,7 @@ namespace netAvida.Tierra
     {
 
 
-        public CPU _cpu;
+        private CPU _cpu;
 
         public MundoTierra(int memorySize):base()
         {
@@ -49,6 +50,8 @@ namespace netAvida.Tierra
             }
             return o;
         }
+
+        
 
         public bool isRunning = true;
         /**
@@ -140,14 +143,24 @@ namespace netAvida.Tierra
 
             if (lastSize <= 1)
             {
+                ALifeConsts.starting = true;
                 criaOrganismo(TierraConsts.DEFAULT_ANCESTOR);
+                ALifeConsts.starting = false;
             }
 
-            while (getMemoryUsePerc() > settings.memoryUseLimitPerc)
+            
+        }
+
+        private void KillFirst()
+        {
+            if (organismos.Count > 0)
             {
-                killWorst(true);
-                // lastSize = size();
+                dealloc(organismos[0]);
+            } else
+            {
+                Log.fatal("Tentando dar KillFirst em organismos vazio");
             }
+
         }
 
         public override float getMemoryUsePerc()
@@ -180,8 +193,11 @@ namespace netAvida.Tierra
             {
                 checkTick(error, totalMemory, maxMemory, minMemory);
             }
+            while (getMemoryUsePerc() > settings.memoryUseLimitPerc)
+            {
+                KillFirst();
+            }
 
-            
         }
 
         private void killAllocatedOrphans()
@@ -191,7 +207,7 @@ namespace netAvida.Tierra
             while (i < allocated.Count)
             {
                 choosen = allocated[i];
-                if (!choosen.parent.isAlive())
+                if (choosen.parent==null || !choosen.parent.isAlive())
                 {
                     dealloc(choosen);
                     i--;
@@ -240,7 +256,7 @@ namespace netAvida.Tierra
 
         private void randomizePosition(int x, int y)
         {
-            int memoryPos = y * ALifeConsts.GRAPH_WIDTH
+            int memoryPos = y * TierraConsts.GRAPH_WIDTH
                     + x;
             randomize(memoryPos);
         }
